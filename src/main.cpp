@@ -1,11 +1,8 @@
 #include <iostream>
-#include "KeyPointAnnotator.h"
 
 int main() {
     
-	KeyPointAnnotator aPool;
-	aPool.addPoolLength(25);
-	std::cout << "Bla: " << aPool.getPoolLength() << std::endl; 
+	std::cout << "The main program, thats all fokes..." << std::endl;
 	
     return 0;
 }

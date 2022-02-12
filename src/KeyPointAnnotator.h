@@ -1,17 +1,16 @@
 #ifndef KEYPOINTANNOTATOR_H
 #define KEYPOINTANNOTATOR_H
 
+#include "PoolData.h"
+
 class KeyPointAnnotator
 {
 public:
-	KeyPointAnnotator();
-	~KeyPointAnnotator();
 
-	void addPoolLength(int length);
-	int getPoolLength();
+	void SetPool(PoolData* thePool) { mThePool = thePool; }
 
 private:
-	int mPoolLength {};
+	PoolData* mThePool;
 };
 
 #endif // !KEYPOINTANNOTATOR_H
