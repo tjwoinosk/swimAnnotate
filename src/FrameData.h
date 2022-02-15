@@ -11,7 +11,7 @@ public:
 	int getFrameWidth();
 	void setFrameName(std::string name);
 	std::string getFrameName();
-	bool frameIsDefined();
+	bool isDefined();
 
 private:
 	int mFrameHeight{ 0 };

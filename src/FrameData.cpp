@@ -37,7 +37,7 @@ std::string FrameData::getFrameName()
 	return mFrameName;
 }
 
-bool FrameData::frameIsDefined()
+bool FrameData::isDefined()
 {
 	if (mFrameHeight != 0 && mFrameWidth != 0)
 		return true;

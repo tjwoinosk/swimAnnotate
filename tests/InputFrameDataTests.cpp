@@ -47,15 +47,15 @@ TEST(InputFrameDataTests, FrameIsDefinedTests) {
     FrameData frame;
     FrameData frame2;
 
-    EXPECT_EQ(false,frame.frameIsDefined());
+    EXPECT_EQ(false,frame.isDefined());
     frame.setFrameName("test.png");
-    EXPECT_EQ(false, frame.frameIsDefined());
+    EXPECT_EQ(false, frame.isDefined());
     frame.setFrameRes(10, 20);
-    EXPECT_EQ(true, frame.frameIsDefined());
+    EXPECT_EQ(true, frame.isDefined());
 
-    EXPECT_EQ(false, frame2.frameIsDefined());
+    EXPECT_EQ(false, frame2.isDefined());
     frame2.setFrameRes(10, 20);
-    EXPECT_EQ(true, frame2.frameIsDefined());
+    EXPECT_EQ(true, frame2.isDefined());
     frame2.setFrameName("test.png");
-    EXPECT_EQ(true, frame2.frameIsDefined());
+    EXPECT_EQ(true, frame2.isDefined());
 }

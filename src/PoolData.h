@@ -16,7 +16,7 @@ public:
 	void specifyBumpers(bool poolHasBumpers);
 	bool poolHasbumpers();
 
-	bool poolIsDefined();
+	bool isDefined();
 
 private:
 	int mLengthPool{ 0 };

@@ -59,11 +59,11 @@ TEST(InputPoolDataTests, PoolIsDefinedTest) {
 
     PoolData poolData;
 
-    EXPECT_EQ(false, poolData.poolIsDefined());
+    EXPECT_EQ(false, poolData.isDefined());
     poolData.specifyBumpers(true);
-    EXPECT_EQ(false, poolData.poolIsDefined());
+    EXPECT_EQ(false, poolData.isDefined());
     poolData.setNumberLanes(10);
-    EXPECT_EQ(false, poolData.poolIsDefined());
+    EXPECT_EQ(false, poolData.isDefined());
     poolData.setLengthPool(50);
-    EXPECT_EQ(true, poolData.poolIsDefined());
+    EXPECT_EQ(true, poolData.isDefined());
 }

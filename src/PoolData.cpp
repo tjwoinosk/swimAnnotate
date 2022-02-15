@@ -50,7 +50,7 @@ bool PoolData::poolHasbumpers()
 	return static_cast<bool>(mHasBumpers);
 }
 
-bool PoolData::poolIsDefined()
+bool PoolData::isDefined()
 {
 	if (mNumberLanes == 0)
 		return false;

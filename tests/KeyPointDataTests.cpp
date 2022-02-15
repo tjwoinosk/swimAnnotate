@@ -1,7 +1,5 @@
 #include "gtest/gtest.h"
-#include "KeyPointMannager.h"
-#include "KeyPointData.h"
-
+#include "AnnotationData.h"
 
 TEST(KeyPointDataTests, AnnotationDataPointTests) {
     WallLeftKeyPoint WL1(25,66,1);
