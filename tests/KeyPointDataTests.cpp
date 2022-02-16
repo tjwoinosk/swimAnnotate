@@ -27,10 +27,10 @@ TEST(KeyPointDataTests, KeyPointTests) {
     WallLeftKeyPoint WLPoint(22, 77);
 
     //Test is valid and comparitor operation
-    EXPECT_EQ(false, WLPoint.isValid());
-    EXPECT_EQ(true, WL1Again.isValid());
-    EXPECT_EQ(false, WLNot.isValid());
-    EXPECT_EQ(true, WL1.isValid());
+    EXPECT_EQ(false, WLPoint.isDefinedClass());
+    EXPECT_EQ(true, WL1Again.isDefinedClass());
+    EXPECT_EQ(false, WLNot.isDefinedClass());
+    EXPECT_EQ(true, WL1.isDefinedClass());
 
     EXPECT_EQ(true, WL1.isTheSameAs(&WL1Again));
     EXPECT_EQ(false, WL1.isTheSameAs(&WLNot));

@@ -31,7 +31,7 @@ public:
 	KeyPointData(int xPoint, int yPoint, int itsNumber) : AnnotationData(xPoint, yPoint) { setClassNumber(itsNumber); }
 	KeyPointData(int itsNumber) { setClassNumber(itsNumber); }
 	bool isTheSameAs(KeyPointData* otherKeyPoint);
-	bool isValid();
+	bool isDefinedClass();
 	virtual std::string getClass() = 0;
 protected:
 	virtual void setClassNumber(int itsNumber) = 0;

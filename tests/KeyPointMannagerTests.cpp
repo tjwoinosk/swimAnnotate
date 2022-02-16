@@ -3,7 +3,6 @@
 #include "AnnotationData.h"
 #include "PoolData.h"
 #include "FrameData.h"
-#include <vector>
 
 class KeyPointMannagerTests : public ::testing::Test {
 protected:
@@ -45,34 +44,24 @@ TEST_F(KeyPointMannagerTests, SimpleAddKeyPointTest)
 
 	mannager.addKeyPoint(&WR0);
 	EXPECT_EQ(1, mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR1);
 	EXPECT_EQ(2,mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR2);
 	EXPECT_EQ(3, mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR3);
 	EXPECT_EQ(4, mannager.keyPointCount());
-
 	EXPECT_THROW(mannager.addKeyPoint(&WR3Extra), KeyPointMannagerKeyPointError);
 	EXPECT_EQ(4, mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR4);
 	EXPECT_EQ(5, mannager.keyPointCount());
-	
 	EXPECT_THROW(mannager.addKeyPoint(&WR5OutOfRange), KeyPointMannagerFrameError);
 	EXPECT_EQ(5, mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR5);
 	EXPECT_EQ(6, mannager.keyPointCount());
-
 	EXPECT_THROW(mannager.addKeyPoint(&WR6OutOfRange), KeyPointMannagerFrameError);
 	EXPECT_EQ(6, mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR6);
 	EXPECT_EQ(7, mannager.keyPointCount());
-
 	EXPECT_THROW(mannager.addKeyPoint(&WR7), KeyPointMannagerPoolError);
 	EXPECT_EQ(7, mannager.keyPointCount());
 	EXPECT_THROW(mannager.addKeyPoint(&WR8), KeyPointMannagerPoolError);
@@ -81,7 +70,6 @@ TEST_F(KeyPointMannagerTests, SimpleAddKeyPointTest)
 	EXPECT_EQ(7, mannager.keyPointCount());
 	EXPECT_THROW(mannager.addKeyPoint(&WR10), KeyPointMannagerPoolError);
 	EXPECT_EQ(7, mannager.keyPointCount());
-
 	mannager.addKeyPoint(&WR11);
 	EXPECT_EQ(8, mannager.keyPointCount());
 	mannager.addKeyPoint(&WR12);

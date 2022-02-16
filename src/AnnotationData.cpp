@@ -26,7 +26,7 @@ void AnnotationData::setPoint(int xPoint, int yPoint)
 
 //----------
 
-bool KeyPointData::isValid()
+bool KeyPointData::isDefinedClass()
 {
 	if (mNumber == -1)
 		return false;
@@ -47,7 +47,7 @@ void KeyPointData::baseSetClassNumber(int itsNumber)
 
 std::string KeyPointData::baseGetClass()
 {
-	if (!this->isValid())
+	if (!this->isDefinedClass())
 		throw KeyPointDataError("Key Point Data Error: Class is not valid, can not return class.");
 	else
 		return mClassName + std::to_string(mNumber);
@@ -55,7 +55,7 @@ std::string KeyPointData::baseGetClass()
 
 bool KeyPointData::isTheSameAs(KeyPointData* otherKeyPoint)
 {
-	if(!otherKeyPoint->isValid())
+	if(!otherKeyPoint->isDefinedClass())
 		return false;
 	if (otherKeyPoint->mNumber == mNumber)
 		return true;
