@@ -7,6 +7,8 @@
 class PoolData
 {
 public:
+	PoolData() = default;
+	PoolData(int length, int numberLanes, bool mHasBumpers);
 	void setNumberLanes(int numberLanes);
 	int getNumberLanes();
 

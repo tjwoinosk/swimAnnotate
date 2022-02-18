@@ -5,25 +5,28 @@
 #include "FrameData.h"
 #include "AnnotationDiscriminator.h"
 
+/*
 class KeyPointMannagerTests : public ::testing::Test {
 protected:
 	
 	void SetUp() override {
-		simple6laneSCMPool.specifyBumpers(true);
-		simple6laneSCMPool.setLengthPool(25);
-		simple6laneSCMPool.setNumberLanes(6);
-		std500SquareFrame.setFrameName("test.png");
-		std500SquareFrame.setFrameRes(500, 500);
+
 	}
 	// void TearDown() override {}
 
+
+};
+*/
+
+TEST(KeyPointMannagerTests, SimpleAddKeyPointTest)
+{
 	PoolData simple6laneSCMPool;
 	FrameData std500SquareFrame;
-};
+	simple6laneSCMPool.specifyBumpers(true);
+	simple6laneSCMPool.setLengthPool(25);
+	simple6laneSCMPool.setNumberLanes(6);
+	std500SquareFrame.setFrameRes(500, 500);
 
-
-TEST_F(KeyPointMannagerTests, SimpleAddKeyPointTest)
-{
 	const int numClasses = 13;
 	KeyPointData* WR[numClasses];
 	for (int ii = 0; ii < numClasses; ii++)

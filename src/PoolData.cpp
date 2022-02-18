@@ -1,5 +1,12 @@
 #include "PoolData.h"
 
+PoolData::PoolData(int length, int numberLanes, bool mHasBumpers)
+{
+	setNumberLanes(numberLanes);
+	setLengthPool(length);
+	specifyBumpers(mHasBumpers);
+}
+
 void PoolData::setNumberLanes(int numberLanes)
 {
 	bool validNumber = false;
