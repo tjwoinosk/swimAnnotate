@@ -18,6 +18,8 @@ public:
 
 	bool isDefined();
 
+	PoolData& operator= (const PoolData& newPool);
+
 private:
 	int mLengthPool{ 0 };
 	int mNumberLanes{ 0 };

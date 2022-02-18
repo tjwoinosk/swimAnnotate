@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "KeyPointMannager.h"
+#include "KeyPointManager.h"
 #include "AnnotationData.h"
 #include "PoolData.h"
 #include "FrameData.h"

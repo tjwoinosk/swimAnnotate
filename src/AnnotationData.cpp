@@ -1,6 +1,5 @@
 #include "AnnotationData.h"
 
-//----------
 
 void AnnotationData::setXPoint(int xPoint)
 {
@@ -24,9 +23,7 @@ void AnnotationData::setPoint(int xPoint, int yPoint)
 	setYPoint(yPoint);
 }
 
-//----------
-
-bool KeyPointData::isDefinedClass()
+bool KeyPointData::isDefinedClass() const
 {
 	if (mNumber == -1)
 		return false;
@@ -45,7 +42,7 @@ void KeyPointData::baseSetClassNumber(int itsNumber)
 		mNumber = itsNumber;
 }
 
-std::string KeyPointData::baseGetClass()
+std::string KeyPointData::baseGetClass() const
 {
 	if (!this->isDefinedClass())
 		throw KeyPointDataError("Key Point Data Error: Class is not valid, can not return class.");
@@ -63,91 +60,49 @@ bool KeyPointData::isTheSameAs(KeyPointData* otherKeyPoint)
 		return false;
 }
 
-//----------
-
-void WallLeftKeyPoint::setClassNumber(int itsNumber)
-{
-	mMaxSubClass = 12;
-	mMinSubClass = 0;
-	baseSetClassNumber(itsNumber);
-}
-
-std::string WallLeftKeyPoint::getClass()
+void WallLeftKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "WL";
-	return baseGetClass();
-}
-
-//----------
-
-void WallRightKeyPoint::setClassNumber(int itsNumber)
-{
 	mMaxSubClass = 12;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
 
-std::string WallRightKeyPoint::getClass()
+void WallRightKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "WR";
-	return baseGetClass();
-}
-
-//----------
-
-void WallTopKeyPoint::setClassNumber(int itsNumber)
-{
-	mMaxSubClass = 8;
-	mMinSubClass = 0;
-	baseSetClassNumber(itsNumber);
-}
-
-std::string WallTopKeyPoint::getClass()
-{
-	mClassName = "WT";
-	return baseGetClass();
-}
-
-//----------
-
-std::string WallBottomKeyPoint::getClass()
-{
-	mClassName = "WB";
-	return baseGetClass();
-}
-
-void WallBottomKeyPoint::setClassNumber(int itsNumber)
-{
-	mMaxSubClass = 8;
-	mMinSubClass = 0;
-	baseSetClassNumber(itsNumber);
-}
-
-//----------
-
-std::string FloatingRightKeyPoint::getClass()
-{
-	mClassName = "FR";
-	return baseGetClass();
-}
-
-void FloatingRightKeyPoint::setClassNumber(int itsNumber)
-{
 	mMaxSubClass = 12;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
 
-//----------
-
-std::string FloatingLeftKeyPoint::getClass()
+void WallTopKeyPoint::setClass(int itsNumber)
 {
-	mClassName = "FL";
-	return baseGetClass();
+	mClassName = "WT";
+	mMaxSubClass = 8;
+	mMinSubClass = 0;
+	baseSetClassNumber(itsNumber);
 }
 
-void FloatingLeftKeyPoint::setClassNumber(int itsNumber)
+void WallBottomKeyPoint::setClass(int itsNumber)
 {
+	mClassName = "WB";
+	mMaxSubClass = 8;
+	mMinSubClass = 0;
+	baseSetClassNumber(itsNumber);
+}
+
+void FloatingRightKeyPoint::setClass(int itsNumber)
+{
+	mClassName = "FR";
+	mMaxSubClass = 12;
+	mMinSubClass = 0;
+	baseSetClassNumber(itsNumber);
+}
+
+void FloatingLeftKeyPoint::setClass(int itsNumber)
+{
+	mClassName = "FL";
 	mMaxSubClass = 12;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);

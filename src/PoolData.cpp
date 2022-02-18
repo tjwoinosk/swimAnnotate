@@ -61,3 +61,11 @@ bool PoolData::isDefined()
 	else
 		return true;
 }
+
+PoolData& PoolData::operator=(const PoolData& newPool)
+{
+	mLengthPool = newPool.mLengthPool;
+	mNumberLanes = newPool.mNumberLanes;
+	mHasBumpers = newPool.mHasBumpers;
+	return *this;
+}

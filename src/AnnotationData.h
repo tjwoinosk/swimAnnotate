@@ -9,7 +9,7 @@ class AnnotationData
 public:
 	AnnotationData() = default;
 	AnnotationData(int xPoint, int yPoint) : mXPoint(xPoint), mYPoint(yPoint) {}
-	virtual std::string getClass() = 0;
+	virtual std::string getClass() const = 0;
 	virtual void setXPoint(int xPoint);
 	virtual void setYPoint(int yPoint);
 	virtual void setPoint(int xPoint, int yPoint);
@@ -27,15 +27,14 @@ class KeyPointData : public AnnotationData
 {
 public:
 	KeyPointData() = default;
-	KeyPointData(int xPoint, int yPoint) : AnnotationData(xPoint, yPoint) {}
-	KeyPointData(int xPoint, int yPoint, int itsNumber) : AnnotationData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	KeyPointData(int itsNumber) { setClassNumber(itsNumber); }
+	KeyPointData(int itsNumber, int xPoint, int yPoint) : AnnotationData(xPoint, yPoint) { setClass(itsNumber); }
+	KeyPointData(int itsNumber) { setClass(itsNumber); }
 	bool isTheSameAs(KeyPointData* otherKeyPoint);
-	bool isDefinedClass();
-	virtual std::string getClass() = 0;
+	bool isDefinedClass() const;
+	std::string getClass() const override { return baseGetClass(); }
 protected:
-	virtual void setClassNumber(int itsNumber) = 0;
-	std::string baseGetClass();
+	virtual void setClass(int itsNumber) { mNumber = itsNumber; }
+	std::string baseGetClass() const;
 	void baseSetClassNumber(int itsNumber);
 	int mNumber{ -1 };
 	std::string mClassName{ "" };
@@ -47,24 +46,20 @@ class WallLeftKeyPoint : public KeyPointData
 {
 public:
 	WallLeftKeyPoint() = default;
-	WallLeftKeyPoint(int xPoint, int yPoint) : KeyPointData(xPoint, yPoint) {}
-	WallLeftKeyPoint(int xPoint, int yPoint, int itsNumber) : KeyPointData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	WallLeftKeyPoint(int itsNumber) { setClassNumber(itsNumber); }
-	std::string getClass() override;
+	WallLeftKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	WallLeftKeyPoint(int itsNumber) { setClass(itsNumber); }
 private:
-	void setClassNumber(int itsNumber) override;
+	void setClass(int itsNumber) override;
 };
 
 class WallRightKeyPoint : public KeyPointData
 {
 public:
 	WallRightKeyPoint() = default;
-	WallRightKeyPoint(int xPoint, int yPoint) : KeyPointData(xPoint, yPoint) {}
-	WallRightKeyPoint(int xPoint, int yPoint, int itsNumber) : KeyPointData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	WallRightKeyPoint(int itsNumber) { setClassNumber(itsNumber); }
-	std::string getClass() override;
+	WallRightKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	WallRightKeyPoint(int itsNumber) { setClass(itsNumber); }
 private:
-	void setClassNumber(int itsNumber) override;
+	void setClass(int itsNumber) override;
 };
 
 
@@ -72,48 +67,40 @@ class WallTopKeyPoint : public KeyPointData
 {
 public:
 	WallTopKeyPoint() = default;
-	WallTopKeyPoint(int xPoint, int yPoint) : KeyPointData(xPoint, yPoint) {}
-	WallTopKeyPoint(int xPoint, int yPoint, int itsNumber) : KeyPointData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	WallTopKeyPoint(int itsNumber) { setClassNumber(itsNumber); }
-	std::string getClass() override;
+	WallTopKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	WallTopKeyPoint(int itsNumber) { setClass(itsNumber); }
 private:
-	void setClassNumber(int itsNumber) override;
+	void setClass(int itsNumber) override;
 };
 
 class WallBottomKeyPoint : public KeyPointData
 {
 public:
 	WallBottomKeyPoint() = default;
-	WallBottomKeyPoint(int xPoint, int yPoint) : KeyPointData(xPoint, yPoint) {}
-	WallBottomKeyPoint(int xPoint, int yPoint, int itsNumber) : KeyPointData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	WallBottomKeyPoint(int itsNumber) { setClassNumber(itsNumber); }
-	std::string getClass() override;
+	WallBottomKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	WallBottomKeyPoint(int itsNumber) { setClass(itsNumber); }
 private:
-	void setClassNumber(int itsNumber) override;
+	void setClass(int itsNumber) override;
 };
 
 class FloatingRightKeyPoint : public KeyPointData
 {
 public:
 	FloatingRightKeyPoint() = default;
-	FloatingRightKeyPoint(int xPoint, int yPoint) : KeyPointData(xPoint, yPoint) {}
-	FloatingRightKeyPoint(int xPoint, int yPoint, int itsNumber) : KeyPointData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	FloatingRightKeyPoint(int itsNumber) { setClassNumber(itsNumber); }
-	std::string getClass() override;
+	FloatingRightKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	FloatingRightKeyPoint(int itsNumber) { setClass(itsNumber); }
 private:
-	void setClassNumber(int itsNumber) override;
+	void setClass(int itsNumber) override;
 };
 
 class FloatingLeftKeyPoint : public KeyPointData
 {
 public:
 	FloatingLeftKeyPoint() = default;
-	FloatingLeftKeyPoint(int xPoint, int yPoint) : KeyPointData(xPoint, yPoint) {}
-	FloatingLeftKeyPoint(int xPoint, int yPoint, int itsNumber) : KeyPointData(xPoint, yPoint) { setClassNumber(itsNumber); }
-	FloatingLeftKeyPoint(int itsNumber) { setClassNumber(itsNumber); }
-	std::string getClass() override;
+	FloatingLeftKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	FloatingLeftKeyPoint(int itsNumber) { setClass(itsNumber); }
 private:
-	void setClassNumber(int itsNumber) override;
+	void setClass(int itsNumber) override;
 };
 
 class KeyPointDataError : public std::exception

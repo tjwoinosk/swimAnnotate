@@ -13,6 +13,8 @@ public:
 	std::string getFrameName();
 	bool isDefined();
 
+	FrameData& operator= (const FrameData& newFrame);
+
 private:
 	int mFrameHeight{ 0 };
 	int mFrameWidth{ 0 };

@@ -1,8 +1,9 @@
 #include "gtest/gtest.h"
-#include "KeyPointMannager.h"
+#include "KeyPointManager.h"
 #include "AnnotationData.h"
 #include "PoolData.h"
 #include "FrameData.h"
+#include "AnnotationDiscriminator.h"
 
 class KeyPointMannagerTests : public ::testing::Test {
 protected:
@@ -23,58 +24,53 @@ protected:
 
 TEST_F(KeyPointMannagerTests, SimpleAddKeyPointTest)
 {
-	WallRightKeyPoint WR0(200, 300, 0);
-	WallRightKeyPoint WR1(200,300, 1);
-	WallRightKeyPoint WR2(300,400, 2);
-	WallRightKeyPoint WR3(300, 400, 3);
-	WallRightKeyPoint WR3Extra(375, 200, 3);
-	WallRightKeyPoint WR4(300, 400, 4);
-	WallRightKeyPoint WR5OutOfRange(300, 500, 5);
-	WallRightKeyPoint WR5(300, 499, 5);
-	WallRightKeyPoint WR6OutOfRange(500, 499, 6);
-	WallRightKeyPoint WR6(499, 499, 6);
-	WallRightKeyPoint WR7(350, 200, 7);
-	WallRightKeyPoint WR8(350, 200, 8);
-	WallRightKeyPoint WR9(350, 200, 9);
-	WallRightKeyPoint WR10(350, 200, 10);
-	WallRightKeyPoint WR11(350, 200, 11);
-	WallRightKeyPoint WR12(350, 200, 12);
+	const int numClasses = 13;
+	KeyPointData* WR[numClasses];
+	for (int ii = 0; ii < numClasses; ii++)
+		WR[ii] = new WallRightKeyPoint(ii);
 
-	KeyPointMannager mannager(simple6laneSCMPool, std500SquareFrame);
-
-	mannager.addKeyPoint(&WR0);
+	KeyPointManager mannager(simple6laneSCMPool, std500SquareFrame);
+	
+	mannager.addKeyPoint(WR[0], 300, 200);
 	EXPECT_EQ(1, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR1);
+	mannager.addKeyPoint(WR[1],350,200);
 	EXPECT_EQ(2,mannager.keyPointCount());
-	mannager.addKeyPoint(&WR2);
+	mannager.addKeyPoint(WR[2],360,210);
 	EXPECT_EQ(3, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR3);
+	mannager.addKeyPoint(WR[3],370,220);
 	EXPECT_EQ(4, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR3Extra), KeyPointMannagerKeyPointError);
+	
+	KeyPointData* WR3Extra = new WallRightKeyPoint(3);
+	EXPECT_THROW(mannager.addKeyPoint(WR3Extra,200,200), AnnotationDiscriminatorError);
 	EXPECT_EQ(4, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR4);
-	EXPECT_EQ(5, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR5OutOfRange), KeyPointMannagerFrameError);
-	EXPECT_EQ(5, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR5);
-	EXPECT_EQ(6, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR6OutOfRange), KeyPointMannagerFrameError);
-	EXPECT_EQ(6, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR6);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR7), KeyPointMannagerPoolError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR8), KeyPointMannagerPoolError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR9), KeyPointMannagerPoolError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(&WR10), KeyPointMannagerPoolError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR11);
-	EXPECT_EQ(8, mannager.keyPointCount());
-	mannager.addKeyPoint(&WR12);
-	EXPECT_EQ(9, mannager.keyPointCount());
+	delete WR3Extra;
 
+	mannager.addKeyPoint(WR[4],380,230);
+	EXPECT_EQ(5, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[5],300,500), AnnotationDiscriminatorError);
+	EXPECT_EQ(5, mannager.keyPointCount());
+	mannager.addKeyPoint(WR[5],300,499);
+	EXPECT_EQ(6, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[6], 500, 499), AnnotationDiscriminatorError);
+	EXPECT_EQ(6, mannager.keyPointCount());
+	mannager.addKeyPoint(WR[6], 499, 499);
+	EXPECT_EQ(7, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[7], 350, 200), AnnotationDiscriminatorError);
+	EXPECT_EQ(7, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[8], 350, 200), AnnotationDiscriminatorError);
+	EXPECT_EQ(7, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[9], 350, 200), AnnotationDiscriminatorError);
+	EXPECT_EQ(7, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[10], 350, 200), AnnotationDiscriminatorError);
+	EXPECT_EQ(7, mannager.keyPointCount());
+
+	mannager.addKeyPoint(WR[11], 350, 200);
+	EXPECT_EQ(8, mannager.keyPointCount());
+	EXPECT_THROW(mannager.addKeyPoint(WR[11], 350, 200), AnnotationDiscriminatorError);
+	EXPECT_EQ(8, mannager.keyPointCount());
+	mannager.addKeyPoint(WR[12], 350, 200);
+	EXPECT_EQ(9, mannager.keyPointCount());
+	
 	//EXPECT_EQ()
 	//EXPECT_THROW()
 }

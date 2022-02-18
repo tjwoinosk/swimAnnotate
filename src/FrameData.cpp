@@ -44,3 +44,11 @@ bool FrameData::isDefined()
 	else
 		return false;
 }
+
+FrameData& FrameData::operator=(const FrameData& newFrame)
+{
+	mFrameHeight = newFrame.mFrameHeight;
+	mFrameWidth = newFrame.mFrameWidth;
+	mFrameName = newFrame.mFrameName;
+	return *this;
+}
