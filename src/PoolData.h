@@ -26,9 +26,6 @@ private:
 	int mLengthPool{ 0 };
 	int mNumberLanes{ 0 };
 	int mHasBumpers{ -1 };
-	const int LCM = 50;
-	const int SCM = 25;
-	const int possibleNumberLanes[3]{ 6, 8, 10 };
 };
 
 class PoolDataError : public std::exception

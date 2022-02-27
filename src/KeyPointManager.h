@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "AnnotationDiscriminator.h"
+#include "PoolKeyPointValidator.h"
 
 class AnnotationData;
 class PoolData;
@@ -15,7 +15,7 @@ class KeyPointManager
 {
 public:
 	KeyPointManager() = default;
-	KeyPointManager(PoolData& pool, FrameData& frame) : mDiscriminator(pool, frame) {}
+	KeyPointManager(PoolData& pool, FrameData& frame) : mPoolValidator(pool) {}
 
 	~KeyPointManager();
 
@@ -27,7 +27,7 @@ public:
 	int keyPointCount();
 	
 private:
-	AnnotationDiscriminator mDiscriminator;
+	PoolKeyPointValidator mPoolValidator;
 	std::vector<KeyPointData*> mKeyPoints;
 };
 

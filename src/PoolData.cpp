@@ -1,4 +1,5 @@
 #include "PoolData.h"
+#include "PoolConstants.h"
 
 PoolData::PoolData(int length, int numberLanes, bool mHasBumpers)
 {
@@ -10,7 +11,7 @@ PoolData::PoolData(int length, int numberLanes, bool mHasBumpers)
 void PoolData::setNumberLanes(int numberLanes)
 {
 	bool validNumber = false;
-	for (int number : possibleNumberLanes)
+	for (int number : PoolConstants::possibleNumberLanes)
 		if (number == numberLanes)
 			validNumber = true;
 	
@@ -29,7 +30,7 @@ int PoolData::getNumberLanes()
 
 void PoolData::setLengthPool(int lengthPool)
 {
-	if (lengthPool != LCM && lengthPool != SCM)
+	if (lengthPool != PoolConstants::LCM && lengthPool != PoolConstants::SCM)
 		throw LengthPoolError("Pool length Error: Pool can only be 50 or 25.");
 	else
 		mLengthPool = lengthPool;
