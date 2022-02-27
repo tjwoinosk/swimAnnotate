@@ -32,6 +32,8 @@ void PoolKeyPointValidator::addVerticalPoints()
 			mKeyPointPoolModel.push_back(new WallRightKeyPoint(ii));
 			mKeyPointPoolModel.push_back(new FloatingRightKeyPoint(ii));
 			mKeyPointPoolModel.push_back(new FloatingLeftKeyPoint(ii));
+			mKeyPointPoolModel.push_back(new BulkheadLeftKeyPoint(ii));
+			mKeyPointPoolModel.push_back(new BulkheadRightKeyPoint(ii));
 		}
 	}
 }

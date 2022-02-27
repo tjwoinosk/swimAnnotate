@@ -97,6 +97,24 @@ private:
 	void setClass(int itsNumber) override;
 };
 
+class BulkheadLeftKeyPoint : public KeyPointData
+{
+public:
+	BulkheadLeftKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	BulkheadLeftKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+private:
+	void setClass(int itsNumber) override;
+};
+
+class BulkheadRightKeyPoint : public KeyPointData
+{
+public:
+	BulkheadRightKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
+	BulkheadRightKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+private:
+	void setClass(int itsNumber) override;
+};
+
 class KeyPointDataError : public std::exception
 {
 public:

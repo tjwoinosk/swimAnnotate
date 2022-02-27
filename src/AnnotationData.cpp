@@ -1,5 +1,5 @@
 #include "AnnotationData.h"
-
+#include "PoolConstants.h"
 
 void AnnotationData::setXPoint(int xPoint)
 {
@@ -63,7 +63,7 @@ bool KeyPointData::isTheSameAs(KeyPointData* otherKeyPoint)
 void WallLeftKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "WL";
-	mMaxSubClass = 12;
+	mMaxSubClass = PoolConstants::maxVerticalPoints-1;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
@@ -71,7 +71,7 @@ void WallLeftKeyPoint::setClass(int itsNumber)
 void WallRightKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "WR";
-	mMaxSubClass = 12;
+	mMaxSubClass = PoolConstants::maxVerticalPoints - 1;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
@@ -79,7 +79,7 @@ void WallRightKeyPoint::setClass(int itsNumber)
 void WallTopKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "WT";
-	mMaxSubClass = 8;
+	mMaxSubClass = PoolConstants::maxHorizontalPoints - 1;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
@@ -87,7 +87,7 @@ void WallTopKeyPoint::setClass(int itsNumber)
 void WallBottomKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "WB";
-	mMaxSubClass = 8;
+	mMaxSubClass = PoolConstants::maxHorizontalPoints - 1;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
@@ -95,7 +95,7 @@ void WallBottomKeyPoint::setClass(int itsNumber)
 void FloatingRightKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "FR";
-	mMaxSubClass = 12;
+	mMaxSubClass = PoolConstants::maxVerticalPoints - 1;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
@@ -103,7 +103,23 @@ void FloatingRightKeyPoint::setClass(int itsNumber)
 void FloatingLeftKeyPoint::setClass(int itsNumber)
 {
 	mClassName = "FL";
-	mMaxSubClass = 12;
+	mMaxSubClass = PoolConstants::maxVerticalPoints - 1;
+	mMinSubClass = 0;
+	baseSetClassNumber(itsNumber);
+}
+
+void BulkheadLeftKeyPoint::setClass(int itsNumber)
+{
+	mClassName = "BL";
+	mMaxSubClass = PoolConstants::maxVerticalPoints - 1;
+	mMinSubClass = 0;
+	baseSetClassNumber(itsNumber);
+}
+
+void BulkheadRightKeyPoint::setClass(int itsNumber)
+{
+	mClassName = "BR";
+	mMaxSubClass = PoolConstants::maxVerticalPoints - 1;
 	mMinSubClass = 0;
 	baseSetClassNumber(itsNumber);
 }
