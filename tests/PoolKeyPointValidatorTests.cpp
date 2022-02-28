@@ -14,10 +14,6 @@ public:
 class PoolKeyPointValidatorTests : public ::testing::Test {
 protected:
 	void SetUp() override {
-		simple6laneSCMPool.specifyBumpers(true);
-		simple6laneSCMPool.setLengthPool(25);
-		simple6laneSCMPool.setNumberLanes(6);
-
 		for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
 			WL[ii] = new WallLeftKeyPoint(ii);
 			WR[ii] = new WallRightKeyPoint(ii);
@@ -47,8 +43,6 @@ protected:
 		}
 	}
 
-	PoolData simple6laneSCMPool;
-	
 	WallLeftKeyPoint* WL[PoolConstants::maxVerticalPoints]{ NULL };
 	WallRightKeyPoint* WR[PoolConstants::maxVerticalPoints]{ NULL };
 	FloatingLeftKeyPoint* FL[PoolConstants::maxVerticalPoints]{ NULL };
@@ -59,8 +53,9 @@ protected:
 	BulkheadRightKeyPoint* BR[PoolConstants::maxVerticalPoints]{ NULL };
 };
 
-TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolTest)
+TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolWithBumpersTest)
 {
+	PoolData simple6laneSCMPool(true,false,50,6);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple6laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -76,12 +71,14 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolTest)
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(FR[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(FL[ii])) << "keyPoint number is:  " << ii;
 		}
+		EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(BL[ii])) << "keyPoint number is:  " << ii;
+		EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(BR[ii])) << "keyPoint number is:  " << ii;
 	}
 }
 
-TEST_F(PoolKeyPointValidatorTests, KeyPointsIn8LanePoolTest)
+TEST_F(PoolKeyPointValidatorTests, KeyPointsIn8LanePoolWithBumpersAndMiddleBulkheadTest)
 {
-	PoolData simple8laneSCMPool(25, 8, true);
+	PoolData simple8laneSCMPool(true, true, 50, 8);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple8laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -90,19 +87,23 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn8LanePoolTest)
 			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(WR[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(FR[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(FL[ii])) << "keyPoint number is:  " << ii;
+			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(BL[ii])) << "keyPoint number is:  " << ii;
+			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(BR[ii])) << "keyPoint number is:  " << ii;
 		}
 		else {
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(WL[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(WR[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(FR[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(FL[ii])) << "keyPoint number is:  " << ii;
+			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(BL[ii])) << "keyPoint number is:  " << ii;
+			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(BR[ii])) << "keyPoint number is:  " << ii;
 		}
 	}
 }
 
-TEST_F(PoolKeyPointValidatorTests, KeyPointsIn10LanePoolNoBumpersTest)
+TEST_F(PoolKeyPointValidatorTests, KeyPointsIn10LanePoolNoBumpersAndMiddleBulkheadTest)
 {
-	PoolData simple10laneSCMPool(25, 10, false);
+	PoolData simple10laneSCMPool(false, true, 50, 10);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple10laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -127,8 +128,8 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn10LanePoolNoBumpersTest)
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolNoBumpersTest)
 {
-	simple6laneSCMPool.specifyBumpers(false);
-	PoolKeyPointValidatorTestClass testDiscriminator(simple6laneSCMPool);
+	PoolData noBumpers6laneSCMPool(false, false, 25, 6);
+	PoolKeyPointValidatorTestClass testDiscriminator(noBumpers6laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
 		if (ii == 7 || ii == 8 || ii == 9 || ii == 10 || ii == 1 || ii == 11) {
@@ -143,11 +144,14 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolNoBumpersTest)
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(FR[ii])) << "keyPoint number is:  " << ii;
 			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(FL[ii])) << "keyPoint number is:  " << ii;
 		}
+		EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(BL[ii])) << "keyPoint number is:  " << ii;
+		EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(BR[ii])) << "keyPoint number is:  " << ii;
 	}
 }
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsInSCMPoolTest)
 {
+	PoolData simple6laneSCMPool(true, false, 25, 6);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple6laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxHorizontalPoints; ii++) {
@@ -164,7 +168,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsInSCMPoolTest)
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsInLCMPoolTest)
 {
-	PoolData simpleLCMPool(50, 8, false);
+	PoolData simpleLCMPool(false, false, 50, 8);
 	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxHorizontalPoints; ii++) {
@@ -173,15 +177,34 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsInLCMPoolTest)
 	}
 }
 
+TEST_F(PoolKeyPointValidatorTests, KeyPointsInLCMPoolWithMiddleBulkheadTest)
+{
+	PoolData simpleLCMPool(false, true, 50, 8);
+	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
+
+	for (int ii = 0; ii < PoolConstants::maxHorizontalPoints; ii++) {
+		if (ii == 4) {
+			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(WT[ii])) << "keyPoint number is:  " << ii;
+			EXPECT_EQ(true, testDiscriminator.keyPointNotInPoolTest(WB[ii])) << "keyPoint number is:  " << ii;
+		}
+		else {
+			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(WT[ii])) << "keyPoint number is:  " << ii;
+			EXPECT_EQ(false, testDiscriminator.keyPointNotInPoolTest(WB[ii])) << "keyPoint number is:  " << ii;
+		}
+	}
+}
+
+/* // cant be done without error
 TEST_F(PoolKeyPointValidatorTests, InvalidPoolTest)
 {
-	PoolData simpleLCMPool;
+	PoolData noBumpers6laneSCMPool;
 	EXPECT_THROW(PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool), PoolKeyPointValidatorError);
 }
+*/
 
 TEST_F(PoolKeyPointValidatorTests, InvalidKeyPointTest)
 {
-	PoolData simpleLCMPool(50, 8, false);
+	PoolData simpleLCMPool(false, true, 50, 8);
 	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
 
 	KeyPointData* WL9 = NULL;

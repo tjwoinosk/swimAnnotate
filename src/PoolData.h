@@ -7,66 +7,31 @@
 class PoolData
 {
 public:
-	PoolData() = default;
-	PoolData(int length, int numberLanes, bool mHasBumpers);
-	void setNumberLanes(int numberLanes);
+	PoolData(bool hasBumpers, bool hasMiddleBulkhead, int length, int numberLanes);
 	int getNumberLanes();
-
-	void setLengthPool(int lengthPool);
 	int getLengthPool();
-
-	void specifyBumpers(bool poolHasBumpers);
 	bool poolHasbumpers();
-
+	bool poolHasMiddleBulkhead();
 	bool isDefined();
 
-	PoolData& operator= (const PoolData& newPool);
-
 private:
+	void setNumberLanes(int numberLanes);
+	void setLengthPool(int lengthPool);
+	void specifyBumpers(bool poolHasBumpers);
+	void specifyMiddlePool(bool poolHasMiddleBulkhead);
 	int mLengthPool{ 0 };
 	int mNumberLanes{ 0 };
 	int mHasBumpers{ -1 };
+	int mHasMiddleBulkhead{ -1 };
 };
 
 class PoolDataError : public std::exception
 {
 public:
+	PoolDataError(std::string errorDetails) : mErrorMessage(errorDetails) {}
 	const char* what() const noexcept override { return mErrorMessage.c_str(); }
 private:
-	const std::string mErrorMessage{ "Pool Data Error: Improper data was given" };
-};
-
-class LengthPoolError : public PoolDataError
-{
-public:
-	LengthPoolError(std::string errorDetails)
-		: mErrorDetails(errorDetails) {}
-	const char* what() const noexcept override { return mErrorDetails.c_str(); }
-
-private:
-	std::string mErrorDetails{};
-};
-
-class NumberLanesError : public PoolDataError
-{
-public:
-	NumberLanesError(std::string errorDetails)
-		: mErrorDetails(errorDetails) {}
-	const char* what() const noexcept override { return mErrorDetails.c_str(); }
-
-private:
-	const std::string mErrorDetails{};
-};
-
-class HasBumpersError : public PoolDataError
-{
-public:
-	HasBumpersError(std::string errorDetails)
-		: mErrorDetails(errorDetails) {}
-	const char* what() const noexcept override { return mErrorDetails.c_str(); }
-
-private:
-	const std::string mErrorDetails{};
+	std::string mErrorMessage{};
 };
 
 

@@ -13,57 +13,59 @@ private:
 
 TEST(InputPoolDataTests, LengthPoolTests) {
     
-    PoolData poolData;
+    PoolData poolData1(false, false, 50, 8);
+    PoolData poolData2(true, false, 25, 10);
 
-    EXPECT_THROW(poolData.getLengthPool(), LengthPoolError);
+    EXPECT_EQ(25, poolData2.getLengthPool());
+    EXPECT_EQ(50, poolData1.getLengthPool());
 
-    poolData.setLengthPool(25);
-    EXPECT_EQ(25, poolData.getLengthPool());
-    poolData.setLengthPool(50);
-    EXPECT_EQ(50, poolData.getLengthPool());
-
-    EXPECT_THROW(poolData.setLengthPool(44), LengthPoolError);
-    EXPECT_THROW(poolData.setLengthPool(-1), LengthPoolError);
-    EXPECT_THROW(poolData.setLengthPool(0), LengthPoolError);
+    EXPECT_THROW(PoolData poolData1(false, false, 44, 8), PoolDataError);
+    EXPECT_THROW(PoolData poolData1(false, false, -1, 8), PoolDataError);
+    EXPECT_THROW(PoolData poolData1(false, false, 1, 8), PoolDataError);
 }
 
 TEST(InputPoolDataTests, NumberLanesTest) {
 
-    PoolData poolData;
-    EXPECT_THROW(poolData.getNumberLanes(), NumberLanesError);
+    PoolData poolData1(true, true, 50, 6);
+    PoolData poolData2(false, false, 50, 8);
+    PoolData poolData3(true, true, 50, 10);
 
-    poolData.setNumberLanes(6);
-    EXPECT_EQ(6, poolData.getNumberLanes());
-    poolData.setNumberLanes(8);
-    EXPECT_EQ(8, poolData.getNumberLanes());
-    poolData.setNumberLanes(10);
-    EXPECT_EQ(10, poolData.getNumberLanes());
+    EXPECT_EQ(6, poolData1.getNumberLanes());
+    EXPECT_EQ(8, poolData2.getNumberLanes());
+    EXPECT_EQ(10, poolData3.getNumberLanes());
 
-    EXPECT_THROW(poolData.setNumberLanes(44), NumberLanesError);
-    EXPECT_THROW(poolData.setNumberLanes(-1), NumberLanesError);
-    EXPECT_THROW(poolData.setNumberLanes(0), NumberLanesError);
+    EXPECT_THROW(PoolData poolData3(true, true, 50, 44), PoolDataError);
+    EXPECT_THROW(PoolData poolData3(true, true, 50, -1), PoolDataError);
+    EXPECT_THROW(PoolData poolData3(true, true, 50, 0), PoolDataError);
 }
 
 TEST(InputPoolDataTests, HasBummpersTests) {
 
-    PoolData poolData;
-    EXPECT_THROW(poolData.poolHasbumpers(), HasBumpersError);
+    PoolData poolData1(true, true, 50, 10);
+    PoolData poolData2(false, false, 50, 10);
 
-    poolData.specifyBumpers(true);
-    EXPECT_EQ(true, poolData.poolHasbumpers());
-    poolData.specifyBumpers(false);
-    EXPECT_EQ(false, poolData.poolHasbumpers());
+    EXPECT_EQ(true, poolData1.poolHasbumpers());
+    EXPECT_EQ(false, poolData2.poolHasbumpers());
+}
+
+TEST(InputPoolDataTests, HasMiddleBulkheadTests) {
+
+    PoolData poolData1(true, true, 50, 10);
+    PoolData poolData2(true, false, 50, 10);
+    EXPECT_EQ(true, poolData1.poolHasMiddleBulkhead());
+    EXPECT_EQ(false, poolData2.poolHasMiddleBulkhead());
+}
+
+TEST(InputPoolDataTests, BulkheadMissmatchTest)
+{
+    EXPECT_THROW(PoolData testPoolData(true, true, 25, 6), PoolDataError);
+    EXPECT_NO_THROW(PoolData testPoolData(true, false, 25, 6));
+    EXPECT_NO_THROW(PoolData testPoolData(true, true, 50, 6));
+    EXPECT_NO_THROW(PoolData testPoolData(true, false, 50, 6));
 }
 
 TEST(InputPoolDataTests, PoolIsDefinedTest) {
 
-    PoolData poolData;
-
-    EXPECT_EQ(false, poolData.isDefined());
-    poolData.specifyBumpers(true);
-    EXPECT_EQ(false, poolData.isDefined());
-    poolData.setNumberLanes(10);
-    EXPECT_EQ(false, poolData.isDefined());
-    poolData.setLengthPool(50);
+    PoolData poolData(true,false,50,10);
     EXPECT_EQ(true, poolData.isDefined());
 }

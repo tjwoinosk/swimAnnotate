@@ -32,8 +32,10 @@ void PoolKeyPointValidator::addVerticalPoints()
 			mKeyPointPoolModel.push_back(new WallRightKeyPoint(ii));
 			mKeyPointPoolModel.push_back(new FloatingRightKeyPoint(ii));
 			mKeyPointPoolModel.push_back(new FloatingLeftKeyPoint(ii));
-			mKeyPointPoolModel.push_back(new BulkheadLeftKeyPoint(ii));
-			mKeyPointPoolModel.push_back(new BulkheadRightKeyPoint(ii));
+			if(mThePool.poolHasMiddleBulkhead()) {
+				mKeyPointPoolModel.push_back(new BulkheadLeftKeyPoint(ii));
+				mKeyPointPoolModel.push_back(new BulkheadRightKeyPoint(ii));
+			}
 		}
 	}
 }
@@ -44,7 +46,8 @@ bool PoolKeyPointValidator::isValidVerticalPoint(int keyPoint)
 	bool addPoint = false;
 	bool pointIsAbumper = false;
 
-	pointIsInThisPool = mThePool.getNumberLanes() >= keyPoint || keyPoint >= PoolConstants::topBumper;
+	pointIsInThisPool = mThePool.getNumberLanes() >= keyPoint;
+	pointIsInThisPool |= keyPoint >= PoolConstants::topBumper;
 	pointIsAbumper = keyPoint == PoolConstants::bottomBumper || keyPoint == PoolConstants::topBumper;
 
 	if (pointIsInThisPool)
@@ -81,6 +84,9 @@ bool PoolKeyPointValidator::isValidHorizontalPoint(int keyPoint)
 	else if (mThePool.getLengthPool() == PoolConstants::LCM)
 		addPoint = true;
 	else
+		addPoint = false;
+
+	if(mThePool.poolHasMiddleBulkhead() && keyPoint == PoolConstants::bulkheadRemovedPoint)
 		addPoint = false;
 
 	return addPoint;

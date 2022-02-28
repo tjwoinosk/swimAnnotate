@@ -11,6 +11,7 @@ namespace PoolConstants
 	const int bottomBumper{ 1 };
 	constexpr int maxHorizontalPoints{ 9 };
 	constexpr int horizontalPointAlwaysPresent[4]{ 0,1,7,8 };
+	constexpr int bulkheadRemovedPoint{ 4 };
 }
 
 #endif // !POOLCONSTANTS_H

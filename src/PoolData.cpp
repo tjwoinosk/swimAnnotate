@@ -1,11 +1,12 @@
 #include "PoolData.h"
 #include "PoolConstants.h"
 
-PoolData::PoolData(int length, int numberLanes, bool mHasBumpers)
+PoolData::PoolData(bool hasBumpers, bool hasMiddleBulkhead, int length, int numberLanes)
 {
-	setNumberLanes(numberLanes);
+	specifyBumpers(hasBumpers);
+	specifyMiddlePool(hasMiddleBulkhead);
 	setLengthPool(length);
-	specifyBumpers(mHasBumpers);
+	setNumberLanes(numberLanes);
 }
 
 void PoolData::setNumberLanes(int numberLanes)
@@ -16,7 +17,7 @@ void PoolData::setNumberLanes(int numberLanes)
 			validNumber = true;
 	
 	if(!validNumber)
-		throw NumberLanesError("Number Lanes Error: Incorrect number of lanes given.");
+		throw PoolDataError("Number Lanes Error: Incorrect number of lanes given.");
 	else
 		mNumberLanes = numberLanes;
 }
@@ -24,14 +25,16 @@ void PoolData::setNumberLanes(int numberLanes)
 int PoolData::getNumberLanes()
 {
 	if (mNumberLanes == 0)
-		throw NumberLanesError("Number Lanes Error: Number Lanes has not been specifed.");
+		throw PoolDataError("Number Lanes Error: Number Lanes has not been specified.");
 	return mNumberLanes;
 }
 
 void PoolData::setLengthPool(int lengthPool)
 {
 	if (lengthPool != PoolConstants::LCM && lengthPool != PoolConstants::SCM)
-		throw LengthPoolError("Pool length Error: Pool can only be 50 or 25.");
+		throw PoolDataError("Pool length Error: Pool can only be 50 or 25.");
+	else if (mHasMiddleBulkhead == 1 && lengthPool == PoolConstants::SCM)
+		throw PoolDataError("Pool length Error: Pool can not be 25m long and have a middle bulkhead.");
 	else
 		mLengthPool = lengthPool;
 }
@@ -39,7 +42,7 @@ void PoolData::setLengthPool(int lengthPool)
 int PoolData::getLengthPool()
 {
 	if (mLengthPool == 0)
-		throw LengthPoolError("Pool length Error: Length of pool has not been specifed.");
+		throw PoolDataError("Pool length Error: Length of pool has not been specified.");
 	return mLengthPool;
 }
 
@@ -54,8 +57,23 @@ void PoolData::specifyBumpers(bool poolHasBumpers)
 bool PoolData::poolHasbumpers()
 {
 	if (mHasBumpers == -1)
-		throw HasBumpersError("Has Bumpers Error: Bumpers has not been specifed.");
+		throw PoolDataError("Has Bumpers Error: Bumpers has not been specified.");
 	return static_cast<bool>(mHasBumpers);
+}
+
+void PoolData::specifyMiddlePool(bool poolHasMiddleBulkhead)
+{
+	if (poolHasMiddleBulkhead)
+		mHasMiddleBulkhead = 1;
+	else
+		mHasMiddleBulkhead = 0;
+}
+
+bool PoolData::poolHasMiddleBulkhead()
+{
+	if (mHasMiddleBulkhead == -1)
+		throw PoolDataError("Has Bumpers Error: Middle Bulkhead has not been specified.");
+	return static_cast<bool>(mHasMiddleBulkhead);
 }
 
 bool PoolData::isDefined()
@@ -66,14 +84,8 @@ bool PoolData::isDefined()
 		return false;
 	else if (mHasBumpers == -1)
 		return false;
+	else if (mHasMiddleBulkhead == -1)
+		return false;
 	else
 		return true;
-}
-
-PoolData& PoolData::operator=(const PoolData& newPool)
-{
-	mLengthPool = newPool.mLengthPool;
-	mNumberLanes = newPool.mNumberLanes;
-	mHasBumpers = newPool.mHasBumpers;
-	return *this;
 }
