@@ -1,55 +1,68 @@
 #include "KeyPointManager.h"
-
 #include "AnnotationData.h"
 #include "PoolData.h"
-#include "FrameData.h"
 
 #include <iostream>
 
 KeyPointManager::~KeyPointManager()
 {
-	for (int ii = 0; ii < mKeyPoints.size(); ii++)
-		delete mKeyPoints[ii];
+	deleteAllKeyPoints();
 }
 
-void KeyPointManager::addKeyPoint(KeyPointData* keyPointClass, int xLocation, int yLocation)
+void KeyPointManager::addKeyPoint(KeyPointData* keyPoint)
 {
-	if (keyPointClass == NULL)
-		throw KeyPointManagerError("Input Key Point was NULL");
+	if (keyPoint == NULL)
+		throw KeyPointManagerError("Key Point Manager Error: Input Key Point was NULL.");
 
-	keyPointClass->setPoint(xLocation, yLocation);
-	addKeyPoint(keyPointClass);
+	for(int ii = 0; ii < keyPointCount(); ii++) {
+		if(keyPoint->getClass() == mKeyPoints[ii]->getClass())
+			throw KeyPointManagerError("Key Point Manager Error: Input Key Point already exists.");
+	}
+
+	mKeyPoints.push_back(keyPoint);
 }
 
-void KeyPointManager::addKeyPoint(KeyPointData* keyPointClass)
+void KeyPointManager::hardAddKeyPoint(KeyPointData* keyPoint)
 {
-	if (keyPointClass == NULL)
-		throw KeyPointManagerError("Input Key Point was NULL");
+	if (keyPoint == NULL)
+		return;
 
-	mPoolValidator.validateKeyPoint(keyPointClass);
-	mKeyPoints.push_back(keyPointClass);
+	for (int ii = 0; ii < keyPointCount(); ii++) {
+		if (keyPoint->getClass() == mKeyPoints[ii]->getClass())
+		{
+			delete mKeyPoints[ii];
+			mKeyPoints[ii] = keyPoint;
+			return;
+		}
+	}
+
+	mKeyPoints.push_back(keyPoint);
 }
-
-
 
 int KeyPointManager::keyPointCount()
 {
 	return static_cast<int>(mKeyPoints.size());
 }
 
-/*
-void  AnnotationDiscriminator::validateKeyPoint(KeyPointData* candidateKeypoint, const std::vector<KeyPointData*>& mannagersList)
+bool KeyPointManager::keyPointAlreadyExists(KeyPointData* keyPoint)
 {
-	if (candidateKeypoint == NULL)
-		throw AnnotationDiscriminatorError("Annotation Discriminator Error: validator was passed a NULL pointer");
-
-	if (keyPointInPool(candidateKeypoint, mannagersList))
-		throw AnnotationDiscriminatorError("Annotation Discriminator Error: Input key point already exists in this manager");
-
-	if (keyPointNotInFrame(candidateKeypoint))
-		throw AnnotationDiscriminatorError("Annotation Discriminator Error: Input key point was out of the frame in the x or y direction");
-
-	if (!keyPointInPool(candidateKeypoint))
-		throw AnnotationDiscriminatorError("Annotation Discriminator Error: Input key point does not exist in this pool setting.");
+	return false;
 }
-*/
+
+KeyPointData* KeyPointManager::queryKeyPoint(KeyPointData* keyPoint)
+{
+	KeyPointData* returnValue = NULL;
+	for (int ii = 0; ii < keyPointCount(); ii++) {
+		if (keyPoint->getClass() == mKeyPoints[ii]->getClass())
+		{
+			returnValue = mKeyPoints[ii];
+		}
+	}
+	return returnValue;
+}
+
+void KeyPointManager::deleteAllKeyPoints()
+{
+	for (int ii = 0; ii < mKeyPoints.size(); ii++)
+		delete mKeyPoints[ii];
+}

@@ -2,121 +2,69 @@
 #include "KeyPointManager.h"
 #include "AnnotationData.h"
 #include "PoolData.h"
-#include "FrameData.h"
-#include "PoolKeyPointValidator.h"
-
-/*
-class KeyPointMannagerTests : public ::testing::Test {
-protected:
-	
-	void SetUp() override {
-
-	}
-	// void TearDown() override {}
 
 
-};
-*/
-/*
 TEST(KeyPointMannagerTests, SimpleAddKeyPointTest)
 {
-	PoolData simple6laneSCMPool;
-	FrameData std500SquareFrame;
-	simple6laneSCMPool.specifyBumpers(true);
-	simple6laneSCMPool.setLengthPool(25);
-	simple6laneSCMPool.setNumberLanes(6);
-	std500SquareFrame.setFrameRes(500, 500);
+	PoolData simple8laneSCMPool(false, false, 25, 8);
+	KeyPointManager manager(simple8laneSCMPool);
+	EXPECT_EQ(0, manager.keyPointCount());
 
-	const int numClasses = 13;
-	KeyPointData* WR[numClasses];
-	for (int ii = 0; ii < numClasses; ii++)
-		WR[ii] = new WallRightKeyPoint(ii);
+	manager.addKeyPoint(new WallLeftKeyPoint(3));
+	EXPECT_EQ(1, manager.keyPointCount());
 
-	KeyPointManager mannager(simple6laneSCMPool, std500SquareFrame);
+	manager.addKeyPoint(new WallRightKeyPoint(2));
+	EXPECT_EQ(2, manager.keyPointCount());
 	
-	mannager.addKeyPoint(WR[0], 300, 200);
-	EXPECT_EQ(1, mannager.keyPointCount());
-	mannager.addKeyPoint(WR[1],350,200);
-	EXPECT_EQ(2,mannager.keyPointCount());
-	mannager.addKeyPoint(WR[2],360,210);
-	EXPECT_EQ(3, mannager.keyPointCount());
-	mannager.addKeyPoint(WR[3],370,220);
-	EXPECT_EQ(4, mannager.keyPointCount());
-	
-	KeyPointData* WR3Extra = new WallRightKeyPoint(3);
-	EXPECT_THROW(mannager.addKeyPoint(WR3Extra,200,200), PoolKeyPointValidatorError);
-	EXPECT_EQ(4, mannager.keyPointCount());
-	delete WR3Extra;
-
-	mannager.addKeyPoint(WR[4],380,230);
-	EXPECT_EQ(5, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[5],300,500), PoolKeyPointValidatorError);
-	EXPECT_EQ(5, mannager.keyPointCount());
-	mannager.addKeyPoint(WR[5],300,499);
-	EXPECT_EQ(6, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[6], 500, 499), PoolKeyPointValidatorError);
-	EXPECT_EQ(6, mannager.keyPointCount());
-	mannager.addKeyPoint(WR[6], 499, 499);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[7], 350, 200), PoolKeyPointValidatorError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[8], 350, 200), PoolKeyPointValidatorError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[9], 350, 200), PoolKeyPointValidatorError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[10], 350, 200), PoolKeyPointValidatorError);
-	EXPECT_EQ(7, mannager.keyPointCount());
-
-	mannager.addKeyPoint(WR[11], 350, 200);
-	EXPECT_EQ(8, mannager.keyPointCount());
-	EXPECT_THROW(mannager.addKeyPoint(WR[11], 350, 200), PoolKeyPointValidatorError);
-	EXPECT_EQ(8, mannager.keyPointCount());
-	mannager.addKeyPoint(WR[12], 350, 200);
-	EXPECT_EQ(9, mannager.keyPointCount());
-	
-	//EXPECT_EQ()
-	//EXPECT_THROW()
+	EXPECT_THROW(manager.addKeyPoint(NULL), KeyPointManagerError);
+	EXPECT_EQ(2, manager.keyPointCount());
 }
 
-
-TEST_F(AnnotationDiscriminatorTests, ValidateKeyPointChkNULLTests)
+TEST(KeyPointMannagerTests, RepeateKeyPointTest)
 {
-	AnnotationDiscriminatorTest testDiscriminator(simple6laneSCMPool, std500SquareFrame);
-	std::vector<KeyPointData*> mKeyPoints;
-	KeyPointData* WL2 = new WallLeftKeyPoint(2);
-	EXPECT_NO_THROW(testDiscriminator.validateKeyPoint(WL2,mKeyPoints));
-	delete WL2;
-	EXPECT_THROW(testDiscriminator.validateKeyPoint(NULL, mKeyPoints), AnnotationDiscriminatorError);
+	PoolData simple8laneSCMPool(false, false, 25, 8);
+	KeyPointManager manager(simple8laneSCMPool);
+
+	manager.addKeyPoint(new WallRightKeyPoint(2));
+	EXPECT_EQ(1, manager.keyPointCount());
+
+	KeyPointData* repeatePoint = new WallRightKeyPoint(2);
+	EXPECT_THROW(manager.addKeyPoint(repeatePoint), KeyPointManagerError);
+	EXPECT_EQ(1, manager.keyPointCount());
+	delete repeatePoint;
+
+	manager.addKeyPoint(new WallLeftKeyPoint(2));
+	EXPECT_EQ(2, manager.keyPointCount());
 }
 
-
-TEST_F(AnnotationDiscriminatorTests, KeyPointPresentTests)
+TEST(KeyPointMannagerTests, hardAddkeyPointTest)
 {
-	AnnotationDiscriminatorTest testDiscriminator(simple6laneSCMPool, std500SquareFrame);
+	PoolData simple8laneSCMPool(false, false, 25, 8);
+	KeyPointManager manager(simple8laneSCMPool);
 
-	std::vector<KeyPointData*> mKeyPoints;
-	KeyPointData* FR6 = NULL;
-	mKeyPoints.push_back(FR6);
-	FR6 = new FloatingRightKeyPoint(6);
-	KeyPointData* FL7 = new FloatingLeftKeyPoint(7);
-	EXPECT_THROW(testDiscriminator.keyPointPresentTest(FR6, mKeyPoints), AnnotationDiscriminatorError);
-	EXPECT_THROW(testDiscriminator.keyPointPresentTest(FL7, mKeyPoints), AnnotationDiscriminatorError);
-	mKeyPoints.clear();
+	manager.hardAddKeyPoint(new WallRightKeyPoint(2));
+	EXPECT_EQ(1, manager.keyPointCount());
 
-	mKeyPoints.push_back(FR6);
-	EXPECT_EQ(true, testDiscriminator.keyPointPresentTest(FR6, mKeyPoints));
+	EXPECT_NO_THROW(manager.hardAddKeyPoint(new WallRightKeyPoint(2)));
+	EXPECT_EQ(1, manager.keyPointCount());
 
-	//This will crash the test
-	//delete FR6;
-
-	mKeyPoints.push_back(FL7);
-	KeyPointData* T1 = new WallTopKeyPoint(1);
-	EXPECT_EQ(true, testDiscriminator.keyPointPresentTest(FL7, mKeyPoints));
-	EXPECT_EQ(false, testDiscriminator.keyPointPresentTest(T1, mKeyPoints));
-
-	delete FR6;
-	delete FL7;
-	delete T1;
+	EXPECT_NO_THROW(manager.hardAddKeyPoint(new WallRightKeyPoint(3)));
+	EXPECT_EQ(2, manager.keyPointCount());
 }
 
-*/
+TEST(KeyPointMannagerTests, AlreadyExistsFunctionTest)
+{
+	PoolData simple8laneSCMPool(false, false, 25, 8);
+	KeyPointManager manager(simple8laneSCMPool);
+
+	KeyPointData* alreadyExisting = new WallRightKeyPoint(2);
+
+	EXPECT_FALSE(manager.keyPointAlreadyExists(alreadyExisting));
+
+	manager.addKeyPoint(new WallRightKeyPoint(2));
+	EXPECT_EQ(1, manager.keyPointCount());
+	EXPECT_TRUE(manager.keyPointAlreadyExists(alreadyExisting));
+
+	delete alreadyExisting;
+
+}

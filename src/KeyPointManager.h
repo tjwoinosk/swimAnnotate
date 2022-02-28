@@ -5,30 +5,29 @@
 #include <string>
 #include <vector>
 
-#include "PoolKeyPointValidator.h"
-
-class AnnotationData;
+class KeyPointData;
 class PoolData;
-class FrameData;
 
 class KeyPointManager
 {
 public:
-	KeyPointManager() = default;
-	KeyPointManager(PoolData& pool, FrameData& frame) : mPoolValidator(pool) {}
+	KeyPointManager(PoolData& pool) : mThePool(pool) {}
+	virtual ~KeyPointManager();
 
-	~KeyPointManager();
-
-	void addKeyPoint(KeyPointData* keyPointClass);
-	void addKeyPoint(KeyPointData* keyPointClass, int xLocation, int yLocation);
+	void addKeyPoint(KeyPointData* keyPoint);
+	void hardAddKeyPoint(KeyPointData* keyPoint);
 	//void delKeyPoint(KeyPointData* keyPointClass);
 	//void chgKeyPoint(KeyPointData* keyPointClass);
 	//AnnotationData& getKeyPoint(KeyPointData* keyPointClass);
 	int keyPointCount();
+	bool keyPointAlreadyExists(KeyPointData* keyPoint);
+	//bool conflictsWithCurrentKeyPoints();
 	
 private:
-	PoolKeyPointValidator mPoolValidator;
+	KeyPointData* queryKeyPoint(KeyPointData* keyPoint);
 	std::vector<KeyPointData*> mKeyPoints;
+	PoolData &mThePool;
+	void deleteAllKeyPoints();
 };
 
 class KeyPointManagerError : public std::exception
