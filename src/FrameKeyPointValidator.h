@@ -12,7 +12,7 @@ class FrameKeyPointValidator
 {
 public:
 	FrameKeyPointValidator(FrameData& inputFrame);
-	void validateKeyPoint(KeyPointData* candidateKeypoint);
+	KeyPointData* validateKeyPoint(KeyPointData* candidateKeypoint);
 
 private:
 	bool keyPointNotInFrame(KeyPointData* candidateKeypoint);

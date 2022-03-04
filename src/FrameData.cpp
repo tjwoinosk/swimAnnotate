@@ -2,10 +2,10 @@
 
 void FrameData::setFrameRes(int height, int width)
 {
-	if (height < 1)
-		throw FrameResError("Frame Res Error: Frame height must be larger than 0.");
-	if (width < 1)
-		throw FrameResError("Frame Res Error: Frame width must be larger than 0.");
+	if (height < 51)
+		throw FrameResError("Frame Res Error: Frame height must be larger than 50.");
+	if (width < 51)
+		throw FrameResError("Frame Res Error: Frame width must be larger than 50.");
 
 	mFrameHeight = height;
 	mFrameWidth = width;

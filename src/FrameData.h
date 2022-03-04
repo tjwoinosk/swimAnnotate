@@ -12,7 +12,6 @@ public:
 	void setFrameName(std::string name);
 	std::string getFrameName();
 	bool isDefined();
-
 	FrameData& operator= (const FrameData& newFrame);
 
 private:

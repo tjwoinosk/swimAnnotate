@@ -16,13 +16,15 @@ FrameKeyPointValidator::FrameKeyPointValidator(FrameData& inputFrame) : mTheFram
 		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: Frame data is under-defined can not create validator");
 }
 
-void FrameKeyPointValidator::validateKeyPoint(KeyPointData* candidateKeypoint)
+KeyPointData* FrameKeyPointValidator::validateKeyPoint(KeyPointData* candidateKeypoint)
 {
 	if (candidateKeypoint == NULL)
 		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: validator was passed a NULL pointer");
 
 	if (keyPointNotInFrame(candidateKeypoint))
 		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: Input key point was out of the frame in the x or y direction");
+
+	return candidateKeypoint;
 }
 
 bool FrameKeyPointValidator::keyPointNotInFrame(KeyPointData* candidateKeypoint)

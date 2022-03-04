@@ -17,22 +17,22 @@ TEST(InputFrameDataTests, InputFrameSizeTests) {
     EXPECT_THROW(frame.getFrameHeight(), FrameResError);
     EXPECT_THROW(frame.getFrameWidth(), FrameResError);
 
-    frame.setFrameRes(10, 20);
-    EXPECT_EQ(10, frame.getFrameHeight());
-    EXPECT_EQ(20, frame.getFrameWidth());
+    frame.setFrameRes(60, 70);
+    EXPECT_EQ(60, frame.getFrameHeight());
+    EXPECT_EQ(70, frame.getFrameWidth());
 
-    EXPECT_THROW(frame.setFrameRes(-1, 10), FrameResError);
+    EXPECT_THROW(frame.setFrameRes(-1, 60), FrameResError);
     EXPECT_NE(-1, frame.getFrameHeight());
-    EXPECT_NE(10, frame.getFrameWidth());
-    EXPECT_THROW(frame.setFrameRes(15, 0), FrameResError);
-    EXPECT_NE(15, frame.getFrameHeight());
-    EXPECT_NE(0, frame.getFrameWidth());
-    EXPECT_THROW(frame.setFrameRes(-1, 0), FrameResError);
-    EXPECT_NE(-1, frame.getFrameHeight());
-    EXPECT_NE(0, frame.getFrameWidth());
-    frame.setFrameRes(15, 25);
-    EXPECT_EQ(15, frame.getFrameHeight());
-    EXPECT_EQ(25, frame.getFrameWidth());
+    EXPECT_NE(60, frame.getFrameWidth());
+    EXPECT_THROW(frame.setFrameRes(65, 49), FrameResError);
+    EXPECT_NE(65, frame.getFrameHeight());
+    EXPECT_NE(49, frame.getFrameWidth());
+    EXPECT_THROW(frame.setFrameRes(49, -1), FrameResError);
+    EXPECT_NE(49, frame.getFrameHeight());
+    EXPECT_NE(-1, frame.getFrameWidth());
+    frame.setFrameRes(65, 75);
+    EXPECT_EQ(65, frame.getFrameHeight());
+    EXPECT_EQ(75, frame.getFrameWidth());
 }
 
 TEST(InputFrameDataTests, InputFrameNameTests) {
@@ -50,11 +50,11 @@ TEST(InputFrameDataTests, FrameIsDefinedTests) {
     EXPECT_EQ(false,frame.isDefined());
     frame.setFrameName("test.png");
     EXPECT_EQ(false, frame.isDefined());
-    frame.setFrameRes(10, 20);
+    frame.setFrameRes(60, 70);
     EXPECT_EQ(true, frame.isDefined());
 
     EXPECT_EQ(false, frame2.isDefined());
-    frame2.setFrameRes(10, 20);
+    frame2.setFrameRes(60, 70);
     EXPECT_EQ(true, frame2.isDefined());
     frame2.setFrameName("test.png");
     EXPECT_EQ(true, frame2.isDefined());
