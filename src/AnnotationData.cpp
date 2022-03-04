@@ -1,6 +1,19 @@
 #include "AnnotationData.h"
 #include "PoolConstants.h"
 
+bool AnnotationData::isTheSamePointAs(AnnotationData* otherPoint)
+{
+	if(otherPoint == NULL)
+		throw KeyPointDataError("Annotation Data Error: input point was NULL.");
+
+	if (mXPoint != otherPoint->getXPoint())
+		return false;
+	else if (mYPoint != otherPoint->getYPoint())
+		return false;
+	else
+		return true;
+}
+
 void AnnotationData::setXPoint(int xPoint)
 {
 	if (xPoint < 0)
@@ -42,7 +55,7 @@ void KeyPointData::baseSetClassNumber(int itsNumber)
 		mNumber = itsNumber;
 }
 
-std::string KeyPointData::baseGetClass() const
+std::string KeyPointData::baseGetObjectID() const
 {
 	if (!this->isDefinedClass())
 		throw KeyPointDataError("Key Point Data Error: Class is not valid, can not return class.");
@@ -50,11 +63,23 @@ std::string KeyPointData::baseGetClass() const
 		return mClassName + std::to_string(mNumber);
 }
 
-bool KeyPointData::isTheSameAs(KeyPointData* otherKeyPoint)
+bool KeyPointData::isTheSameNumberAs(KeyPointData* otherKeyPoint) const
 {
-	if(!otherKeyPoint->isDefinedClass())
-		return false;
+	if(otherKeyPoint == NULL)
+		throw KeyPointDataError("Key Point Data Error: Is the same number as function received a NULL ptr.");
+
 	if (otherKeyPoint->mNumber == mNumber)
+		return true;
+	else
+		return false;
+}
+
+bool KeyPointData::isTheSameClass(KeyPointData* otherKeyPoint) const
+{
+	if (otherKeyPoint == NULL)
+		throw KeyPointDataError("Key Point Data Error: Is the same class function received a NULL ptr.");
+
+	if (otherKeyPoint->mClassName == mClassName)
 		return true;
 	else
 		return false;

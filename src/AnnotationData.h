@@ -9,7 +9,8 @@ class AnnotationData
 public:
 	AnnotationData() = default;
 	AnnotationData(int xPoint, int yPoint) : mXPoint(xPoint), mYPoint(yPoint) {}
-	virtual std::string getClass() const = 0;
+	virtual std::string getObjectID() const = 0;
+	bool isTheSamePointAs(AnnotationData* otherPoint);
 	virtual void setXPoint(int xPoint);
 	virtual void setYPoint(int yPoint);
 	virtual void setPoint(int xPoint, int yPoint);
@@ -29,12 +30,14 @@ public:
 	KeyPointData::KeyPointData() : AnnotationData() {}
 	KeyPointData(int itsNumber, int xPoint, int yPoint) : AnnotationData(xPoint, yPoint) { setClass(itsNumber); }
 	KeyPointData(int itsNumber) : AnnotationData() { setClass(itsNumber); }
-	bool isTheSameAs(KeyPointData* otherKeyPoint);
+	bool isTheSameNumberAs(KeyPointData* otherKeyPoint) const;
+	bool isTheSameClass(KeyPointData* otherKeyPoint) const;
 	bool isDefinedClass() const;
-	std::string getClass() const override { return baseGetClass(); }
+	virtual KeyPointData* deepCopy() const { return new KeyPointData(*this); };
+	std::string getObjectID() const override { return baseGetObjectID(); }
 protected:
 	virtual void setClass(int itsNumber) { mNumber = itsNumber; }
-	std::string baseGetClass() const;
+	std::string baseGetObjectID() const;
 	void baseSetClassNumber(int itsNumber);
 	int mNumber{-1};
 	std::string mClassName{""};
@@ -45,8 +48,10 @@ protected:
 class WallLeftKeyPoint : public KeyPointData
 {
 public:
+	WallLeftKeyPoint(const WallLeftKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	WallLeftKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	WallLeftKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	WallLeftKeyPoint* deepCopy() const override { return new WallLeftKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };
@@ -54,8 +59,10 @@ private:
 class WallRightKeyPoint : public KeyPointData
 {
 public:
+	WallRightKeyPoint(const WallRightKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	WallRightKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	WallRightKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	WallRightKeyPoint* deepCopy() const override { return new WallRightKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };
@@ -64,6 +71,7 @@ private:
 class WallTopKeyPoint : public KeyPointData
 {
 public:
+	WallTopKeyPoint(const WallTopKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	WallTopKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	WallTopKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
 private:
@@ -73,8 +81,10 @@ private:
 class WallBottomKeyPoint : public KeyPointData
 {
 public:
+	WallBottomKeyPoint(const WallBottomKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	WallBottomKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	WallBottomKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	WallBottomKeyPoint* deepCopy() const override { return new WallBottomKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };
@@ -82,8 +92,10 @@ private:
 class FloatingRightKeyPoint : public KeyPointData
 {
 public:
+	FloatingRightKeyPoint(const FloatingRightKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	FloatingRightKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	FloatingRightKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	FloatingRightKeyPoint* deepCopy() const override { return new FloatingRightKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };
@@ -91,8 +103,10 @@ private:
 class FloatingLeftKeyPoint : public KeyPointData
 {
 public:
+	FloatingLeftKeyPoint(const FloatingLeftKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	FloatingLeftKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	FloatingLeftKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	FloatingLeftKeyPoint* deepCopy() const override { return new FloatingLeftKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };
@@ -100,8 +114,10 @@ private:
 class BulkheadLeftKeyPoint : public KeyPointData
 {
 public:
+	BulkheadLeftKeyPoint(const BulkheadLeftKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	BulkheadLeftKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	BulkheadLeftKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	BulkheadLeftKeyPoint* deepCopy() const override { return new BulkheadLeftKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };
@@ -109,8 +125,10 @@ private:
 class BulkheadRightKeyPoint : public KeyPointData
 {
 public:
+	BulkheadRightKeyPoint(const BulkheadRightKeyPoint& copy) : KeyPointData(copy.mNumber, copy.mXPoint, copy.mYPoint) { setClass(copy.mNumber); }
 	BulkheadRightKeyPoint(int itsNumber, int xPoint, int yPoint) : KeyPointData(itsNumber, xPoint, yPoint) { setClass(itsNumber); }
 	BulkheadRightKeyPoint(int itsNumber) : KeyPointData() { setClass(itsNumber); }
+	BulkheadRightKeyPoint* deepCopy() const override { return new BulkheadRightKeyPoint(*this); };
 private:
 	void setClass(int itsNumber) override;
 };

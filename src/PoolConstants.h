@@ -6,6 +6,9 @@ namespace PoolConstants
 	constexpr int LCM{ 50 };
 	constexpr int SCM{ 25 };
 	constexpr int possibleNumberLanes[3]{ 6, 8, 10 };
+	constexpr int sixLanes{ possibleNumberLanes[0] };
+	constexpr int eightLanes{ possibleNumberLanes[1] };
+	constexpr int tenLanes{ possibleNumberLanes[2] };
 	constexpr int maxVerticalPoints{ 13 };
 	const int topBumper{ 11 };
 	const int bottomBumper{ 1 };

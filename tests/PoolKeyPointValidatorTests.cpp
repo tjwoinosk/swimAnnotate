@@ -55,7 +55,7 @@ protected:
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolWithBumpersTest)
 {
-	PoolData simple6laneSCMPool(true,false,50,6);
+	PoolData simple6laneSCMPool(true,false,PoolConstants::LCM,PoolConstants::sixLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple6laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -78,7 +78,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolWithBumpersTest)
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsIn8LanePoolWithBumpersAndMiddleBulkheadTest)
 {
-	PoolData simple8laneSCMPool(true, true, 50, 8);
+	PoolData simple8laneSCMPool(true, true, PoolConstants::LCM, PoolConstants::eightLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple8laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -103,7 +103,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn8LanePoolWithBumpersAndMiddleBulkh
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsIn10LanePoolNoBumpersAndMiddleBulkheadTest)
 {
-	PoolData simple10laneSCMPool(false, true, 50, 10);
+	PoolData simple10laneSCMPool(false, true, PoolConstants::LCM, PoolConstants::tenLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple10laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -128,7 +128,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn10LanePoolNoBumpersAndMiddleBulkhe
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolNoBumpersTest)
 {
-	PoolData noBumpers6laneSCMPool(false, false, 25, 6);
+	PoolData noBumpers6laneSCMPool(false, false, PoolConstants::SCM, PoolConstants::sixLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(noBumpers6laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxVerticalPoints; ii++) {
@@ -151,7 +151,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolNoBumpersTest)
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsInSCMPoolTest)
 {
-	PoolData simple6laneSCMPool(true, false, 25, 6);
+	PoolData simple6laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::sixLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simple6laneSCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxHorizontalPoints; ii++) {
@@ -168,7 +168,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsInSCMPoolTest)
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsInLCMPoolTest)
 {
-	PoolData simpleLCMPool(false, false, 50, 8);
+	PoolData simpleLCMPool(false, false, PoolConstants::LCM, PoolConstants::eightLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxHorizontalPoints; ii++) {
@@ -179,7 +179,7 @@ TEST_F(PoolKeyPointValidatorTests, KeyPointsInLCMPoolTest)
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsInLCMPoolWithMiddleBulkheadTest)
 {
-	PoolData simpleLCMPool(false, true, 50, 8);
+	PoolData simpleLCMPool(false, true, PoolConstants::LCM, PoolConstants::eightLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
 
 	for (int ii = 0; ii < PoolConstants::maxHorizontalPoints; ii++) {
@@ -204,7 +204,7 @@ TEST_F(PoolKeyPointValidatorTests, InvalidPoolTest)
 
 TEST_F(PoolKeyPointValidatorTests, InvalidKeyPointTest)
 {
-	PoolData simpleLCMPool(false, true, 50, 8);
+	PoolData simpleLCMPool(false, true, PoolConstants::LCM, PoolConstants::eightLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
 
 	KeyPointData* WL9 = NULL;

@@ -103,13 +103,13 @@ void  PoolKeyPointValidator::validateKeyPoint(KeyPointData* candidateKeypoint)
 
 bool PoolKeyPointValidator::keyPointNotInPool(KeyPointData* candidateKeypoint)
 {
-	std::string newClassName = candidateKeypoint->getClass();
+	std::string newClassName = candidateKeypoint->getObjectID();
 
 	for (int ii = 0; ii < mKeyPointPoolModel.size(); ii++) {
 		const KeyPointData* temp = mKeyPointPoolModel.at(ii);
 		if (temp == NULL)
 			throw PoolKeyPointValidatorError("Pool key Point Validator Error: internal pool is not valid (should not happen).");
-		if (temp->getClass() == newClassName)
+		if (temp->getObjectID() == newClassName)
 			return false;
 	}
 	return true;
