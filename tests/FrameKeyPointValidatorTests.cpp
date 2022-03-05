@@ -44,57 +44,54 @@ TEST(FrameKeyPointValidatorTests, LeftFloatingToLeftBoarderTest)
 	FrameKeyPointValidator validator(testFrame);
 
 	//x<300 && y>x
-	KeyPointData* FL8 = new FloatingLeftKeyPoint(8, 285, 290);
+	KeyPointData* FL8 = new FloatingLeftKeyPoint(8, 299, 300);
 	FL8 = validator.validateKeyPoint(FL8);
 	EXPECT_EQ(0, FL8->getXPoint());
-	EXPECT_EQ(290, FL8->getYPoint());
-
-	//x<300 && y<x
-	KeyPointData* FL7 = new FloatingLeftKeyPoint(7, 299, 233);
-	FL7 = validator.validateKeyPoint(FL7);
-	EXPECT_EQ(299, FL7->getXPoint());
-	EXPECT_EQ(0, FL7->getYPoint());
+	EXPECT_EQ(300, FL8->getYPoint());
+	delete FL8;
 
 	//x<300 && y=x
 	KeyPointData* FL6 = new FloatingLeftKeyPoint(6, 299, 299);
 	FL6 = validator.validateKeyPoint(FL6);
 	EXPECT_EQ(299, FL6->getXPoint());
 	EXPECT_EQ(0, FL6->getYPoint());
+	delete FL6;
 
 	//x=300 && y>x
 	KeyPointData* FL5 = new FloatingLeftKeyPoint(5, 300, 301);
 	FL5 = validator.validateKeyPoint(FL5);
 	EXPECT_EQ(0, FL5->getXPoint());
 	EXPECT_EQ(301, FL5->getYPoint());
-
-	//x=300 && y<x
-	KeyPointData* FL4 = new FloatingLeftKeyPoint(4, 300, 299);
-	FL4 = validator.validateKeyPoint(FL4);
-	EXPECT_EQ(300, FL4->getXPoint());
-	EXPECT_EQ(0, FL4->getYPoint());
+	delete FL5;
 
 	//x=300 && y=x
 	KeyPointData* FL3 = new FloatingLeftKeyPoint(3, 300, 300);
 	FL3 = validator.validateKeyPoint(FL3);
 	EXPECT_EQ(300, FL3->getXPoint());
 	EXPECT_EQ(0, FL3->getYPoint());
-
-	//x>300 && y>x
-	KeyPointData* FL2 = new FloatingLeftKeyPoint(2, 355, 455);
-	FL2 = validator.validateKeyPoint(FL2);
-	EXPECT_EQ(601, FL2->getXPoint());
-	EXPECT_EQ(455, FL2->getYPoint());
+	delete FL3;
 
 	//x>300 && y<x
 	KeyPointData* FL1 = new FloatingLeftKeyPoint(1, 301, 300);
 	FL1 = validator.validateKeyPoint(FL1);
 	EXPECT_EQ(601, FL1->getXPoint());
 	EXPECT_EQ(300, FL1->getYPoint());
+	delete FL1;
 
-	//x>300 && y=x
-	KeyPointData* FL0 = new FloatingLeftKeyPoint(0, 301, 301);
-	FL0 = validator.validateKeyPoint(FL0);
-	EXPECT_EQ(601, FL0->getXPoint());
-	EXPECT_EQ(301, FL0->getYPoint());
+	//x>300 && y<x
+	KeyPointData* FL2 = new FloatingLeftKeyPoint(2, 301, 299);
+	FL2 = validator.validateKeyPoint(FL2);
+	EXPECT_EQ(301, FL2->getXPoint());
+	EXPECT_EQ(0, FL2->getYPoint());
+	delete FL2;
+}
 
+TEST(FrameKeyPointValidatorTests, RightFloatingToLeftBoarderTest)
+{
+	EXPECT_TRUE(true);
+}
+
+TEST(FrameKeyPointValidatorTests, ValidatorOnlyChangesFloatingPoints)
+{
+	EXPECT_TRUE(true);
 }

@@ -24,6 +24,29 @@ KeyPointData* FrameKeyPointValidator::validateKeyPoint(KeyPointData* candidateKe
 	if (keyPointNotInFrame(candidateKeypoint))
 		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: Input key point was out of the frame in the x or y direction");
 
+	candidateKeypoint = modifyKeyPoint(candidateKeypoint);
+
+	return candidateKeypoint;
+}
+
+KeyPointData* FrameKeyPointValidator::modifyKeyPoint(KeyPointData* candidateKeypoint)
+{
+	FloatingLeftKeyPoint chkPoint(1);
+	if (candidateKeypoint->isTheSameClass(&chkPoint)){
+		int x = candidateKeypoint->getXPoint();
+		int xInv = mTheFrame.getFrameHeight() - x - 1;
+		int dx = std::min(x, xInv);
+		int dy = candidateKeypoint->getYPoint();
+
+		if (dx >= dy)
+			candidateKeypoint->setYPoint(0);
+		else {// dx<dy
+			if (xInv >= x)
+				candidateKeypoint->setXPoint(0);
+			else
+				candidateKeypoint->setXPoint(mTheFrame.getFrameHeight());
+		}
+	}
 	return candidateKeypoint;
 }
 

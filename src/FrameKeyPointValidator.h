@@ -15,6 +15,7 @@ public:
 	KeyPointData* validateKeyPoint(KeyPointData* candidateKeypoint);
 
 private:
+	KeyPointData* modifyKeyPoint(KeyPointData* candidateKeypoint);
 	bool keyPointNotInFrame(KeyPointData* candidateKeypoint);
 	bool discriminationIsNotPossible();
 	FrameData& mTheFrame;
