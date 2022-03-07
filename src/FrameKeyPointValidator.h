@@ -16,6 +16,8 @@ public:
 
 private:
 	KeyPointData* modifyKeyPoint(KeyPointData* candidateKeypoint);
+	void modifyFloatingRight(KeyPointData* candidateKeypoint);
+	void modifyFloatingLeft(KeyPointData* candidateKeypoint);
 	bool keyPointNotInFrame(KeyPointData* candidateKeypoint);
 	bool discriminationIsNotPossible();
 	FrameData& mTheFrame;
