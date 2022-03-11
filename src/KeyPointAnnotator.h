@@ -1,16 +1,10 @@
 #ifndef KEYPOINTANNOTATOR_H
 #define KEYPOINTANNOTATOR_H
 
-#include "PoolData.h"
-
 class KeyPointAnnotator
 {
 public:
-
-	void SetPool(PoolData* thePool) { mThePool = thePool; }
-
-private:
-	PoolData* mThePool;
+	virtual void execute() = 0;
 };
 
 #endif // !KEYPOINTANNOTATOR_H

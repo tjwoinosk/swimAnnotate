@@ -3,25 +3,25 @@
 void FrameData::setFrameRes(int height, int width)
 {
 	if (height < 51)
-		throw FrameResError("Frame Res Error: Frame height must be larger than 50.");
+		throw FrameDataError("Frame Data Error: Frame height must be larger than 50.");
 	if (width < 51)
-		throw FrameResError("Frame Res Error: Frame width must be larger than 50.");
+		throw FrameDataError("Frame Data Error: Frame width must be larger than 50.");
 
 	mFrameHeight = height;
 	mFrameWidth = width;
 }
 
-int FrameData::getFrameHeight()
+int FrameData::getFrameHeight() const
 {
 	if(mFrameHeight == 0)
-		throw FrameResError("Frame Res Error: Frame height has not been specified.");
+		throw FrameDataError("Frame Data Error: Frame height has not been specified.");
 	return mFrameHeight;
 }
 
-int FrameData::getFrameWidth()
+int FrameData::getFrameWidth() const
 {
 	if (mFrameWidth == 0)
-		throw FrameResError("Frame Res Error: Frame width has not been specified.");
+		throw FrameDataError("Frame Data Error: Frame width has not been specified.");
 	return mFrameWidth;
 }
 
@@ -30,14 +30,14 @@ void FrameData::setFrameName(std::string name)
 	mFrameName = name;
 }
 
-std::string FrameData::getFrameName()
+std::string FrameData::getFrameName() const
 {
 	if (mFrameName == "")
-		throw FrameNameError("Frame Name Error: Frame name has not been defined.");
+		throw FrameDataError("Frame Data Error: Frame name has not been defined.");
 	return mFrameName;
 }
 
-bool FrameData::isDefined()
+bool FrameData::isDefined() const
 {
 	if (mFrameHeight != 0 && mFrameWidth != 0)
 		return true;

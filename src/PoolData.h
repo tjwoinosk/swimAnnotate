@@ -7,18 +7,23 @@
 class PoolData
 {
 public:
+	PoolData() = default;
 	PoolData(bool hasBumpers, bool hasMiddleBulkhead, int length, int numberLanes);
-	int getNumberLanes();
-	int getLengthPool();
-	bool poolHasbumpers();
-	bool poolHasMiddleBulkhead();
-	bool isDefined();
+	PoolData(const PoolData& pool);
+	int getNumberLanes() const;
+	int getLengthPool() const;
+	bool poolHasbumpers() const;
+	bool poolHasMiddleBulkhead() const;
+	bool isDefined() const;
 
-private:
 	void setNumberLanes(int numberLanes);
 	void setLengthPool(int lengthPool);
 	void specifyBumpers(bool poolHasBumpers);
 	void specifyMiddlePool(bool poolHasMiddleBulkhead);
+
+	PoolData& operator= (const PoolData& newPool);
+
+private:
 	int mLengthPool{ 0 };
 	int mNumberLanes{ 0 };
 	int mHasBumpers{ -1 };

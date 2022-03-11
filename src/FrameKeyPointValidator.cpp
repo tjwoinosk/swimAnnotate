@@ -1,6 +1,6 @@
 #include "FrameKeyPointValidator.h"
 #include "FrameData.h"
-#include "AnnotationData.h"
+#include "KeyPointData.h"
 
 bool FrameKeyPointValidator::discriminationIsNotPossible()
 {
@@ -18,8 +18,8 @@ FrameKeyPointValidator::FrameKeyPointValidator(FrameData& inputFrame) : mTheFram
 
 KeyPointData* FrameKeyPointValidator::validateKeyPoint(KeyPointData* candidateKeypoint)
 {
-	if (candidateKeypoint == NULL)
-		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: validator was passed a NULL pointer");
+	if (candidateKeypoint == nullptr)
+		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: validator was passed a nullptr pointer");
 
 	if (keyPointNotInFrame(candidateKeypoint))
 		throw FrameKeyPointValidatorError("Frame Key Point Validation Error: Input key point was out of the frame in the x or y direction");

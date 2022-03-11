@@ -6,7 +6,6 @@
 #include <string>
 
 class PoolData;
-class FrameData;
 class KeyPointData;
 
 class PoolKeyPointValidator
@@ -15,13 +14,13 @@ public:
 	PoolKeyPointValidator(PoolData& inputPool);
 	virtual ~PoolKeyPointValidator() { deallocateKeyPointPoolModel(); }
 
-	void validateKeyPoint(KeyPointData* candidateKeypoint);
+	bool validateKeyPoint(KeyPointData* candidateKeypoint);
+	std::vector<KeyPointData*> getCopyOfPoolModel();
 
 protected:
 	bool keyPointNotInPool(KeyPointData* candidateKeypoint);
 
 private:
-
 	void addVerticalPoints();
 	bool isValidVerticalPoint(int keyPoint);
 	void addHorizontalPoints();

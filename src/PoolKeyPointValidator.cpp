@@ -1,6 +1,6 @@
 #include "PoolKeyPointValidator.h"
 #include "PoolData.h"
-#include "AnnotationData.h"
+#include "KeyPointData.h"
 #include "PoolConstants.h"
 
 bool PoolKeyPointValidator::discriminationIsNotPossible()
@@ -92,22 +92,25 @@ bool PoolKeyPointValidator::isValidHorizontalPoint(int keyPoint)
 	return addPoint;
 }
 
-void  PoolKeyPointValidator::validateKeyPoint(KeyPointData* candidateKeypoint)
+bool  PoolKeyPointValidator::validateKeyPoint(KeyPointData* candidateKeypoint)
 {
-	if (candidateKeypoint == NULL)
-		throw PoolKeyPointValidatorError("Pool key Point Validator Error: validator was passed a NULL pointer.");
+	if (candidateKeypoint == nullptr)
+		throw PoolKeyPointValidatorError("Pool key Point Validator Error: validator was passed a nullptr pointer.");
 
 	if (keyPointNotInPool(candidateKeypoint))
-		throw PoolKeyPointValidatorError("Pool key Point Validator Error: Input key point does not exist in this pool setting.");
+		return false;
+		//throw PoolKeyPointValidatorError("Pool key Point Validator Error: Input key point does not exist in this pool setting.");
+	
+	return true;
 }
 
 bool PoolKeyPointValidator::keyPointNotInPool(KeyPointData* candidateKeypoint)
 {
 	std::string newClassName = candidateKeypoint->getObjectID();
 
-	for (int ii = 0; ii < mKeyPointPoolModel.size(); ii++) {
+	for (std::size_t ii = 0; ii < mKeyPointPoolModel.size(); ii++) {
 		const KeyPointData* temp = mKeyPointPoolModel.at(ii);
-		if (temp == NULL)
+		if (temp == nullptr)
 			throw PoolKeyPointValidatorError("Pool key Point Validator Error: internal pool is not valid (should not happen).");
 		if (temp->getObjectID() == newClassName)
 			return false;
@@ -119,4 +122,13 @@ void PoolKeyPointValidator::deallocateKeyPointPoolModel()
 {
 	for (int ii = 0; ii < mKeyPointPoolModel.size(); ii++)
 		delete mKeyPointPoolModel[ii];
+}
+
+
+std::vector<KeyPointData*> PoolKeyPointValidator::getCopyOfPoolModel()
+{
+	std::vector<KeyPointData*> returnCopy{};
+	for (std::size_t ii = 0; ii < mKeyPointPoolModel.size(); ii++)
+		returnCopy.push_back(mKeyPointPoolModel[ii]->deepCopy());
+	return returnCopy;
 }

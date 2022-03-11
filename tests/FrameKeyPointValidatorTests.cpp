@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "AnnotationData.h"
+#include "KeyPointData.h"
 #include "FrameData.h"
 #include "FrameKeyPointValidator.h" 
 
@@ -27,7 +27,7 @@ TEST(FrameKeyPointValidatorTests, KeyPointNullTest)
 	testFrame.setFrameRes(500, 500);
 	FrameKeyPointValidator testFrameValidator(testFrame);
 
-	WallTopKeyPoint* T7 = NULL;
+	WallTopKeyPoint* T7 = nullptr;
 	EXPECT_THROW(testFrameValidator.validateKeyPoint(T7), FrameKeyPointValidatorError);
 }
 
@@ -159,7 +159,7 @@ TEST(FrameKeyPointValidatorTests, ValidatorOnlyChangesFloatingPoints)
 	EXPECT_EQ(200, FR0->getYPoint());
 	delete FR0;
 
-	KeyPointData* pnt = NULL;
+	KeyPointData* pnt = nullptr;
 	pnt = new WallRightKeyPoint(0, 356, 224);
 	pnt = validator.validateKeyPoint(pnt);
 	EXPECT_EQ(356, pnt->getXPoint());

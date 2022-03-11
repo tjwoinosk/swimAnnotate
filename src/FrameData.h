@@ -7,11 +7,11 @@ class FrameData
 {
 public:
 	void setFrameRes(int height, int width);
-	int getFrameHeight();
-	int getFrameWidth();
+	int getFrameHeight() const;
+	int getFrameWidth() const;
 	void setFrameName(std::string name);
-	std::string getFrameName();
-	bool isDefined();
+	std::string getFrameName() const;
+	bool isDefined() const;
 	FrameData& operator= (const FrameData& newFrame);
 
 private:
@@ -24,29 +24,9 @@ private:
 class FrameDataError : public std::exception
 {
 public:
-	const char* what() const noexcept override { return mErrorMessage.c_str(); }
-private:
-	const std::string mErrorMessage{ "Frame Data Error: Improper data was given" };
-};
-
-class FrameResError : public FrameDataError
-{
-public:
-	FrameResError(std::string errorDetails)
+	FrameDataError(std::string errorDetails)
 		: mErrorDetails(errorDetails) {}
 	const char* what() const noexcept override { return mErrorDetails.c_str(); }
-
-private:
-	std::string mErrorDetails{};
-};
-
-class FrameNameError : public FrameDataError
-{
-public:
-	FrameNameError(std::string errorDetails)
-		: mErrorDetails(errorDetails) {}
-	const char* what() const noexcept override { return mErrorDetails.c_str(); }
-
 private:
 	std::string mErrorDetails{};
 };

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "AnnotationData.h"
+#include "KeyPointData.h"
 #include "PoolData.h"
 #include "PoolKeyPointValidator.h" 
 #include "PoolConstants.h"
@@ -43,14 +43,14 @@ protected:
 		}
 	}
 
-	WallLeftKeyPoint* WL[PoolConstants::maxVerticalPoints]{ NULL };
-	WallRightKeyPoint* WR[PoolConstants::maxVerticalPoints]{ NULL };
-	FloatingLeftKeyPoint* FL[PoolConstants::maxVerticalPoints]{ NULL };
-	FloatingRightKeyPoint* FR[PoolConstants::maxVerticalPoints]{ NULL };
-	WallTopKeyPoint* WT[PoolConstants::maxHorizontalPoints]{ NULL };
-	WallBottomKeyPoint* WB[PoolConstants::maxHorizontalPoints]{ NULL };
-	BulkheadLeftKeyPoint* BL[PoolConstants::maxVerticalPoints]{ NULL };
-	BulkheadRightKeyPoint* BR[PoolConstants::maxVerticalPoints]{ NULL };
+	WallLeftKeyPoint* WL[PoolConstants::maxVerticalPoints]{ nullptr };
+	WallRightKeyPoint* WR[PoolConstants::maxVerticalPoints]{ nullptr };
+	FloatingLeftKeyPoint* FL[PoolConstants::maxVerticalPoints]{ nullptr };
+	FloatingRightKeyPoint* FR[PoolConstants::maxVerticalPoints]{ nullptr };
+	WallTopKeyPoint* WT[PoolConstants::maxHorizontalPoints]{ nullptr };
+	WallBottomKeyPoint* WB[PoolConstants::maxHorizontalPoints]{ nullptr };
+	BulkheadLeftKeyPoint* BL[PoolConstants::maxVerticalPoints]{ nullptr };
+	BulkheadRightKeyPoint* BR[PoolConstants::maxVerticalPoints]{ nullptr };
 };
 
 TEST_F(PoolKeyPointValidatorTests, KeyPointsIn6LanePoolWithBumpersTest)
@@ -207,9 +207,25 @@ TEST_F(PoolKeyPointValidatorTests, InvalidKeyPointTest)
 	PoolData simpleLCMPool(false, true, PoolConstants::LCM, PoolConstants::eightLanes);
 	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
 
-	KeyPointData* WL9 = NULL;
+	KeyPointData* WL9 = nullptr;
 	EXPECT_THROW(testDiscriminator.validateKeyPoint(WL9), PoolKeyPointValidatorError);
 	WL9 = new WallLeftKeyPoint(9);
-	EXPECT_THROW(testDiscriminator.validateKeyPoint(WL9), PoolKeyPointValidatorError);
+	EXPECT_FALSE(testDiscriminator.validateKeyPoint(WL9));
+	delete WL9;
+}
+
+TEST_F(PoolKeyPointValidatorTests, TestDeepCopy)
+{
+	PoolData simpleLCMPool(false, true, PoolConstants::LCM, PoolConstants::tenLanes);
+	PoolKeyPointValidatorTestClass testDiscriminator(simpleLCMPool);
+
+	KeyPointData* WL9 = new WallLeftKeyPoint(9);
+	EXPECT_TRUE(testDiscriminator.validateKeyPoint(WL9));
+
+	std::vector<KeyPointData*> testCopy = testDiscriminator.getCopyOfPoolModel();
+	for (std::size_t ii = 0; ii < testCopy.size(); ii++)
+		EXPECT_NO_THROW(delete testCopy[ii]);
+
+	EXPECT_TRUE(testDiscriminator.validateKeyPoint(WL9));
 	delete WL9;
 }

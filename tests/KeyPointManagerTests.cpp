@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "KeyPointManager.h"
-#include "AnnotationData.h"
+#include "KeyPointData.h"
 #include "PoolData.h"
 #include "PoolConstants.h"
 
@@ -11,8 +11,8 @@ TEST(KeyPointManagerTests, SimpleAddKeyPointTest)
 	PoolData simple8laneSCMPool(false, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
 	EXPECT_EQ(0, manager.keyPointCount());
-	KeyPointData* inputData = NULL;
-
+	KeyPointData* inputData = nullptr;
+	
 	inputData = new WallLeftKeyPoint(3);
 	EXPECT_NO_THROW(manager.addKeyPoint(inputData));
 	EXPECT_EQ(1, manager.keyPointCount());
@@ -23,7 +23,7 @@ TEST(KeyPointManagerTests, SimpleAddKeyPointTest)
 	EXPECT_EQ(2, manager.keyPointCount());
 	delete inputData;
 
-	EXPECT_THROW(manager.addKeyPoint(NULL), KeyPointManagerError);
+	EXPECT_THROW(manager.addKeyPoint(nullptr), KeyPointManagerError);
 	EXPECT_EQ(2, manager.keyPointCount());
 }
 
@@ -31,14 +31,14 @@ TEST(KeyPointManagerTests, RepeateKeyPointTest)
 {
 	PoolData simple8laneSCMPool(false, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
-	KeyPointData* inputData = NULL;
+	KeyPointData* inputData = nullptr;
 
-	inputData = new WallRightKeyPoint(2);
+	inputData = new BulkheadLeftKeyPoint(2);
 	EXPECT_NO_THROW(manager.addKeyPoint(inputData));
 	EXPECT_EQ(1, manager.keyPointCount());
 	delete inputData;
 
-	KeyPointData* repeatePoint = new WallRightKeyPoint(2);
+	KeyPointData* repeatePoint = new BulkheadLeftKeyPoint(2);
 	EXPECT_THROW(manager.addKeyPoint(repeatePoint), KeyPointManagerError);
 	EXPECT_EQ(1, manager.keyPointCount());
 	delete repeatePoint;
@@ -55,11 +55,11 @@ TEST(KeyPointManagerTests, GetKeyPointTest)
 	KeyPointManager manager(simple8laneSCMPool);
 
 	WallRightKeyPoint* test = new WallRightKeyPoint(2, 10, 20);
-	EXPECT_EQ(NULL, manager.getKeyPoint("WR2"));
+	EXPECT_EQ(nullptr, manager.getKeyPoint("WR2"));
 	EXPECT_NO_THROW(manager.addKeyPoint(test));
 	EXPECT_TRUE(manager.getKeyPoint("WR2")->isTheSamePointAs(test));
 	delete test;
-	EXPECT_EQ(NULL, manager.getKeyPoint("WR1"));
+	EXPECT_EQ(nullptr, manager.getKeyPoint("WR1"));
 }
 
 TEST(KeyPointManagerTests, hardAddkeyPointTest)
@@ -89,7 +89,7 @@ TEST(KeyPointManagerTests, AddFloatingConflict)
 	PoolData simple8laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
 
-	KeyPointData* addData = NULL;
+	KeyPointData* addData = nullptr;
 
 	addData = new WallLeftKeyPoint(1);
 	EXPECT_NO_THROW(manager.addKeyPoint(addData));
@@ -113,7 +113,7 @@ TEST(KeyPointManagerTests, HardAddFloatingConflict)
 {
 	PoolData simple8laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
-	KeyPointData* addData = NULL;
+	KeyPointData* addData = nullptr;
 
 	addData = new WallLeftKeyPoint(1);
 	EXPECT_NO_THROW(manager.addKeyPoint(addData));
@@ -138,7 +138,7 @@ TEST(KeyPointManagerTests, AddWallConflict)
 {
 	PoolData simple8laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
-	KeyPointData* addData = NULL;
+	KeyPointData* addData = nullptr;
 
 	addData = new FloatingLeftKeyPoint(1);
 	EXPECT_NO_THROW(manager.addKeyPoint(addData));
@@ -162,7 +162,7 @@ TEST(KeyPointManagerTests, HardAddWallConflict)
 {
 	PoolData simple8laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
-	KeyPointData* addData = NULL;
+	KeyPointData* addData = nullptr;
 
 	addData = new FloatingLeftKeyPoint(1);
 	EXPECT_NO_THROW(manager.addKeyPoint(addData));
@@ -187,7 +187,7 @@ TEST(KeyPointManagerTests, DeleteKeyPointTest)
 {
 	PoolData simple8laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
-	KeyPointData* addData = NULL;
+	KeyPointData* addData = nullptr;
 
 	EXPECT_THROW(manager.delKeyPoint(manager.getKeyPoint("FL2")), KeyPointManagerError);
 	
@@ -211,7 +211,7 @@ TEST(KeyPointManagerTests, GetCopyOfKeyPointsTest)
 {
 	PoolData simple8laneSCMPool(true, false, PoolConstants::SCM, PoolConstants::eightLanes);
 	KeyPointManager manager(simple8laneSCMPool);
-	KeyPointData* addData = NULL;
+	KeyPointData* addData = nullptr;
 
 	addData = new FloatingLeftKeyPoint(1);
 	EXPECT_NO_THROW(manager.addKeyPoint(addData));
@@ -232,7 +232,7 @@ TEST(KeyPointManagerTests, GetCopyOfKeyPointsTest)
 	bool isTrue = false;
 	for (int ii = 0; ii < manCopy.size(); ii++) {
 		isTrue = true;
-		if (manager.getKeyPoint(manCopy[ii]->getObjectID()) == NULL)
+		if (manager.getKeyPoint(manCopy[ii]->getObjectID()) == nullptr)
 			isTrue = false;
 		EXPECT_TRUE(isTrue) << "Key point " << ii << " was not the same.";
 	}

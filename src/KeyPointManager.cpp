@@ -1,5 +1,5 @@
 #include "KeyPointManager.h"
-#include "AnnotationData.h"
+#include "KeyPointData.h"
 #include "PoolData.h"
 
 #include <iostream>
@@ -52,7 +52,7 @@ void KeyPointManager::delKeyPoint(KeyPointData* keyPoint)
 	if (possiblePoint != std::end(mKeyPoints)){
 		delete *possiblePoint;
 		mKeyPoints.erase(possiblePoint);
-	}	
+	}
 }
 
 KeyPointData* KeyPointManager::getKeyPoint(std::string keyPointID)
@@ -61,7 +61,7 @@ KeyPointData* KeyPointManager::getKeyPoint(std::string keyPointID)
 		if (mKeyPoints[ii]->getObjectID() == keyPointID)
 			return mKeyPoints[ii];
 	}
-	return NULL;
+	return nullptr;
 }
 
 std::vector<KeyPointData*>::iterator KeyPointManager::wallConflictWith(KeyPointData* keyPoint)
@@ -104,8 +104,8 @@ std::vector<KeyPointData*>::iterator KeyPointManager::floatingConflictWith(KeyPo
 
 std::vector<KeyPointData*>::iterator KeyPointManager::queryKeyPoint(KeyPointData* keyPoint)
 {
-	if(keyPoint == NULL)
-		throw KeyPointManagerError("Key Point Manager Error: Input Key Point was NULL.");
+	if(keyPoint == nullptr)
+		throw KeyPointManagerError("Key Point Manager Error: Input Key Point was nullptr.");
 
 	std::vector<KeyPointData*>::iterator it = std::begin(mKeyPoints);
 	for (it; it != std::end(mKeyPoints); ++it)
