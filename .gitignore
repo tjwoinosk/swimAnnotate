@@ -1,2 +1,3 @@
 build/
-lib/
+lib/googletest/googletest/
+lib/wxWidgets/wxWidgets/
