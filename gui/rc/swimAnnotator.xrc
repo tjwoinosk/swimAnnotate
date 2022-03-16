@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resource xmlns="http://www.wxwidgets.org/wxxrc" version="2.5.3.0">
-	<object class="wxFrame" name="mainFrame">
+	<object class="wxFrame" name="MainFrame">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
 		<size>770,672</size>
 		<title></title>
@@ -243,12 +243,20 @@
 				<object class="wxBoxSizer">
 					<orient>wxVERTICAL</orient>
 					<object class="sizeritem">
-						<option>1</option>
+						<option>10</option>
 						<flag>wxALL|wxEXPAND</flag>
 						<border>5</border>
 						<object class="wxScrolledWindow" name="m_imageViewer">
 							<style>wxHSCROLL|wxVSCROLL</style>
 							<scrollrate>5,5</scrollrate>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND | wxALL</flag>
+						<border>5</border>
+						<object class="wxPanel" name="m_LogPanel">
+							<style>wxTAB_TRAVERSAL</style>
 						</object>
 					</object>
 				</object>
