@@ -1,9 +1,9 @@
-#include "swimAnnotateGUI.h"
-
 #include "wx/wxprec.h"
 #ifndef WX_PRECOMP
     #include "wx/wx.h"
 #endif
+
+#include "swimAnnotateGUI.h"
 
 #include "wx/xrc/xmlres.h"
 #include "MainFrame.h"

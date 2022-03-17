@@ -1,10 +1,10 @@
-#include "MainFrame.h"
-
 #include "wx/wxprec.h"
 #ifndef WX_PRECOMP
     #include "wx/wx.h"
 #endif
 
+#include "MainFrame.h"
+#include "KeyPointAnnotatorDialog.h"
 #include "wx/xrc/xmlres.h"
 
 // ----------------------------------------------------------------------------
@@ -17,6 +17,7 @@
 wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
 	EVT_MENU(Minimal_Quit, MainFrame::OnQuit)
 	EVT_MENU(Minimal_About, MainFrame::OnAbout)
+    EVT_BUTTON(XRCID("m_StartButton"), MainFrame::OnStartClicked)
 wxEND_EVENT_TABLE()
 
 // ----------------------------------------------------------------------------
@@ -24,7 +25,7 @@ wxEND_EVENT_TABLE()
 // ----------------------------------------------------------------------------
 
 // frame constructor
-MainFrame::MainFrame(wxWindow* parent) //: wxFrame(NULL, wxID_ANY, title)
+MainFrame::MainFrame(wxWindow* parent)
 {
     wxXmlResource::Get()->LoadFrame(this, parent, "MainFrame");
 
@@ -39,8 +40,6 @@ MainFrame::MainFrame(wxWindow* parent) //: wxFrame(NULL, wxID_ANY, title)
     menuBar->Append(fileMenu, "&File");
     menuBar->Append(helpMenu, "&Help");
     SetMenuBar(menuBar);
-
-
 }
 
 void MainFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
@@ -63,4 +62,10 @@ void MainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
         "About wxWidgets minimal sample",
         wxOK | wxICON_INFORMATION,
         this);
+}
+
+void MainFrame::OnStartClicked(wxCommandEvent& event)
+{
+    KeyPointAnnotatorDialog dialog(this);
+    dialog.ShowModal();
 }
