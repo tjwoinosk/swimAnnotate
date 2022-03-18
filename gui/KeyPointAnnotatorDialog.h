@@ -27,7 +27,17 @@ private:
 	void OnMouseMoveInImage(wxMouseEvent& event);
 	void OnMouseClick(wxMouseEvent& event);
 
+	void PaintEvent(wxPaintEvent& evt);
+	void PaintNow();
+	void OnSize(wxSizeEvent& event);
+	void Render(wxDC& dc);
+
 	wxTextCtrl* m_logPtr{};
+	wxImage m_image{};
+	wxBitmap m_resized{};
+	wxScrolledWindow* m_imageWindowPtr{};
+	bool m_imgLoaded{};
+	int m_imgW{}, m_imgH{};
 };
 
 #endif // !KEYPOINTANNOTATORDIALOG_H

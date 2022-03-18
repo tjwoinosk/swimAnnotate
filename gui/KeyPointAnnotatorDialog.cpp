@@ -6,6 +6,7 @@
 #include "KeyPointAnnotatorDialog.h"
 #include "wx/textctrl.h"
 #include "wx/xrc/xmlres.h" 
+#include "wx/imagjpeg.h"
 
 KeyPointAnnotatorDialog::KeyPointAnnotatorDialog(wxWindow* parent)
 {
@@ -17,6 +18,12 @@ KeyPointAnnotatorDialog::KeyPointAnnotatorDialog(wxWindow* parent)
 
 	wxStaticText* fileLocation = XRCCTRL(*this, "m_displayWorkSpaceStaticText", wxStaticText);
 	fileLocation->SetLabel("New File Name");
+
+	wxImage::AddHandler(new wxJPEGHandler());
+	m_imageWindowPtr = XRCCTRL(*this, "m_imgScrolledWindow", wxScrolledWindow);
+	m_imgLoaded = m_image.LoadFile(".\\rc\\examplePool.jpg", wxBITMAP_TYPE_JPEG);
+	m_imgW = -1;
+	m_imgH = -1;
 
 	XRCCTRL(*this, "m_undoAnnotationButton", wxButton)->Bind(wxEVT_BUTTON,
 		wxCommandEventHandler(KeyPointAnnotatorDialog::OnAnnotationUndo), this, XRCID("m_undoAnnotationButton"));
@@ -44,6 +51,8 @@ KeyPointAnnotatorDialog::KeyPointAnnotatorDialog(wxWindow* parent)
 		wxMouseEventHandler(KeyPointAnnotatorDialog::OnMouseMoveInImage), this, XRCID("m_imgScrolledWindow"));
 	XRCCTRL(*this, "m_imgScrolledWindow", wxScrolledWindow)->Bind(wxEVT_LEFT_UP,
 		wxMouseEventHandler(KeyPointAnnotatorDialog::OnMouseClick), this, XRCID("m_imgScrolledWindow"));
+	XRCCTRL(*this, "m_imgScrolledWindow", wxScrolledWindow)->Bind(wxEVT_PAINT,
+		wxPaintEventHandler(KeyPointAnnotatorDialog::PaintEvent), this, XRCID("m_imgScrolledWindow"));
 }
 
 void KeyPointAnnotatorDialog::OnAnnotationUndo(wxCommandEvent& event)
@@ -120,3 +129,47 @@ void KeyPointAnnotatorDialog::OnMouseClick(wxMouseEvent& event)
 	wxPoint point = event.GetPosition();
 	*m_logPtr << "Mouse Click: (" << point.x << "," << point.y << ")\n";
 }
+
+void KeyPointAnnotatorDialog::PaintEvent(wxPaintEvent& evt)
+{
+	wxPaintDC dc(m_imageWindowPtr);
+	Render(dc);
+}
+
+void KeyPointAnnotatorDialog::PaintNow()
+{
+	wxClientDC dc(m_imageWindowPtr);
+	Render(dc);
+}
+
+void KeyPointAnnotatorDialog::OnSize(wxSizeEvent& event)
+{
+	Refresh();
+	//skip the event.
+	event.Skip();
+}
+
+void KeyPointAnnotatorDialog::Render(wxDC& dc)
+{
+	if(m_imgLoaded){
+		/*
+		int neww, newh;
+		dc.GetSize(&neww, &newh);
+
+		if (neww != m_imgW || newh != m_imgH) {
+			//m_resized = wxBitmap(m_image.Scale(neww, newh, wxIMAGE_QUALITY_HIGH));
+			m_resized = wxBitmap(m_image.Scale(neww, newh));
+			m_imgW = neww;
+			m_imgH = newh;
+			dc.DrawBitmap(m_resized, 0, 0, false);
+		}
+		else
+			dc.DrawBitmap(m_resized, 0, 0, false);
+		*/
+		m_resized = wxBitmap(m_image);
+		dc.DrawBitmap(m_resized, 0, 0, false);
+	}
+}
+
+
+

@@ -280,23 +280,12 @@
 					<object class="sizeritem">
 						<option>10</option>
 						<flag>wxEXPAND | wxALL</flag>
-						<border>5</border>
-						<object class="wxPanel" name="m_imgPanel">
-							<style>wxTAB_TRAVERSAL</style>
-							<object class="wxBoxSizer">
-								<orient>wxVERTICAL</orient>
-								<object class="sizeritem">
-									<option>1</option>
-									<flag>wxEXPAND | wxALL</flag>
-									<border>5</border>
-									<object class="wxScrolledWindow" name="m_imgScrolledWindow">
-										<style>wxHSCROLL|wxVSCROLL</style>
-										<bg>#000000</bg>
-										<fg>#ffffff</fg>
-										<scrollrate>5,5</scrollrate>
-									</object>
-								</object>
-							</object>
+						<border>0</border>
+						<object class="wxScrolledWindow" name="m_imgScrolledWindow">
+							<style>wxHSCROLL|wxVSCROLL</style>
+							<bg>#000000</bg>
+							<fg>#ffffff</fg>
+							<scrollrate>5,5</scrollrate>
 						</object>
 					</object>
 					<object class="sizeritem">
