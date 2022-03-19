@@ -11,6 +11,13 @@ public:
 
 private:
 
+	void BindCtrls();
+
+	wxTextCtrl* m_logPtr{};
+	void SetupLogger();
+
+	void LoadPoolImage();
+
 	void OnAnnotationUndo(wxCommandEvent& event);
 	void OnImgZoomIn(wxCommandEvent& event);
 	void OnImgZoomOut(wxCommandEvent& event);
@@ -32,11 +39,10 @@ private:
 	void OnSize(wxSizeEvent& event);
 	void Render(wxDC& dc);
 
-	wxTextCtrl* m_logPtr{};
+
 	wxImage m_image{};
 	wxBitmap m_resized{};
 	wxScrolledWindow* m_imageWindowPtr{};
-	bool m_imgLoaded{};
 	int m_imgW{}, m_imgH{};
 };
 

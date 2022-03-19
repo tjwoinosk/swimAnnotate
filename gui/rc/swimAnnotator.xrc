@@ -33,8 +33,8 @@
 		</object>
 	</object>
 	<object class="wxDialog" name="KeyPointDialog">
-		<style>wxDEFAULT_DIALOG_STYLE</style>
-		<size>932,593</size>
+		<style>wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxMINIMIZE_BOX|wxRESIZE_BORDER</style>
+		<size>787,641</size>
 		<title>Key Point Annotator</title>
 		<centered>1</centered>
 		<object class="wxFlexGridSizer">
@@ -46,220 +46,223 @@
 			<growablerows>0</growablerows>
 			<object class="sizeritem">
 				<option>1</option>
-				<flag>wxEXPAND</flag>
+				<flag>wxEXPAND | wxALL</flag>
 				<border>5</border>
-				<object class="wxBoxSizer">
-					<orient>wxVERTICAL</orient>
-					<object class="sizeritem">
-						<option>1</option>
-						<flag>wxALL|wxEXPAND</flag>
-						<border>5</border>
-						<object class="wxStaticBoxSizer">
-							<orient>wxVERTICAL</orient>
-							<label>Pool Stats</label>
-							<object class="sizeritem">
-								<option>1</option>
-								<flag>wxEXPAND</flag>
-								<border>5</border>
-								<object class="wxBoxSizer">
-									<orient>wxVERTICAL</orient>
-									<object class="sizeritem">
-										<option>0</option>
-										<flag>wxALL</flag>
-										<border>5</border>
-										<object class="wxChoice" name="m_poolLengthChoice">
-											<selection>0</selection>
-											<content>
-												<item>LCM</item>
-												<item>SCM</item>
-											</content>
+				<object class="wxPanel" name="m_panel4">
+					<style>wxTAB_TRAVERSAL</style>
+					<object class="wxBoxSizer">
+						<orient>wxVERTICAL</orient>
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxStaticBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<label>Pool Stats</label>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxEXPAND</flag>
+									<border>5</border>
+									<object class="wxBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxChoice" name="m_poolLengthChoice">
+												<selection>0</selection>
+												<content>
+													<item>LCM</item>
+													<item>SCM</item>
+												</content>
+											</object>
 										</object>
-									</object>
-									<object class="sizeritem">
-										<option>0</option>
-										<flag>wxALL</flag>
-										<border>5</border>
-										<object class="wxChoice" name="m_numberLanesChoice">
-											<selection>0</selection>
-											<content>
-												<item>6 Lanes</item>
-												<item>8 Lanes</item>
-												<item>10 Lanes</item>
-											</content>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxChoice" name="m_numberLanesChoice">
+												<selection>0</selection>
+												<content>
+													<item>6 Lanes</item>
+													<item>8 Lanes</item>
+													<item>10 Lanes</item>
+												</content>
+											</object>
 										</object>
-									</object>
-									<object class="sizeritem">
-										<option>0</option>
-										<flag>wxALL</flag>
-										<border>5</border>
-										<object class="wxCheckBox" name="m_hasBumpersCheckBox">
-											<label>Bumpers</label>
-											<checked>0</checked>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxCheckBox" name="m_hasBumpersCheckBox">
+												<label>Bumpers</label>
+												<checked>0</checked>
+											</object>
 										</object>
-									</object>
-									<object class="sizeritem">
-										<option>0</option>
-										<flag>wxALL</flag>
-										<border>5</border>
-										<object class="wxCheckBox" name="m_hasBulkheadCheckBox">
-											<label>Bulkhead</label>
-											<checked>0</checked>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxCheckBox" name="m_hasBulkheadCheckBox">
+												<label>Bulkhead</label>
+												<checked>0</checked>
+											</object>
 										</object>
 									</object>
 								</object>
 							</object>
 						</object>
-					</object>
-					<object class="sizeritem">
-						<option>1</option>
-						<flag>wxALL|wxEXPAND</flag>
-						<border>5</border>
-						<object class="wxStaticBoxSizer">
-							<orient>wxVERTICAL</orient>
-							<label>Annotation Classes</label>
-							<object class="sizeritem">
-								<option>0</option>
-								<flag>wxALL</flag>
-								<border>5</border>
-								<object class="wxComboBox" name="m_annoationClassComboBox">
-									<style>wxCB_READONLY|wxCB_SORT</style>
-									<value>willBeDefined</value>
-									<content />
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxStaticBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<label>Annotation Classes</label>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxComboBox" name="m_annoationClassComboBox">
+										<style>wxCB_READONLY|wxCB_SORT</style>
+										<value>willBeDefined</value>
+										<content />
+									</object>
 								</object>
-							</object>
-							<object class="sizeritem">
-								<option>0</option>
-								<flag>wxALL</flag>
-								<border>5</border>
-								<object class="wxButton" name="m_undoAnnotationButton">
-									<label>Undo</label>
-									<default>0</default>
-									<auth_needed>0</auth_needed>
-									<markup>0</markup>
-									<bitmap />
-								</object>
-							</object>
-						</object>
-					</object>
-					<object class="sizeritem">
-						<option>1</option>
-						<flag>wxALL|wxEXPAND</flag>
-						<border>5</border>
-						<object class="wxStaticBoxSizer">
-							<orient>wxVERTICAL</orient>
-							<label>Image Control</label>
-							<object class="sizeritem">
-								<option>0</option>
-								<flag>wxALL</flag>
-								<border>5</border>
-								<object class="wxButton" name="m_zoomInButton">
-									<label>Zoom In</label>
-									<default>0</default>
-									<auth_needed>0</auth_needed>
-									<markup>0</markup>
-									<bitmap />
-								</object>
-							</object>
-							<object class="sizeritem">
-								<option>0</option>
-								<flag>wxALL</flag>
-								<border>5</border>
-								<object class="wxButton" name="m_zoomOutButton">
-									<label>Zoom Out</label>
-									<default>0</default>
-									<auth_needed>0</auth_needed>
-									<markup>0</markup>
-									<bitmap />
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxButton" name="m_undoAnnotationButton">
+										<label>Undo</label>
+										<default>0</default>
+										<auth_needed>0</auth_needed>
+										<markup>0</markup>
+										<bitmap />
+									</object>
 								</object>
 							</object>
 						</object>
-					</object>
-					<object class="sizeritem">
-						<option>2</option>
-						<flag>wxALL|wxEXPAND</flag>
-						<border>5</border>
-						<object class="wxStaticBoxSizer">
-							<orient>wxVERTICAL</orient>
-							<label>Image Data</label>
-							<object class="sizeritem">
-								<option>0</option>
-								<flag>wxALL</flag>
-								<border>5</border>
-								<object class="wxButton" name="m_lastImgButton">
-									<label>Last Image</label>
-									<default>0</default>
-									<auth_needed>0</auth_needed>
-									<markup>0</markup>
-									<bitmap />
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxStaticBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<label>Image Control</label>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxButton" name="m_zoomInButton">
+										<label>Zoom In</label>
+										<default>0</default>
+										<auth_needed>0</auth_needed>
+										<markup>0</markup>
+										<bitmap />
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxButton" name="m_zoomOutButton">
+										<label>Zoom Out</label>
+										<default>0</default>
+										<auth_needed>0</auth_needed>
+										<markup>0</markup>
+										<bitmap />
+									</object>
 								</object>
 							</object>
-							<object class="sizeritem">
-								<option>0</option>
-								<flag>wxALL</flag>
-								<border>5</border>
-								<object class="wxButton" name="m_nextImgButton">
-									<label>Next Image</label>
-									<default>0</default>
-									<auth_needed>0</auth_needed>
-									<markup>0</markup>
-									<bitmap />
+						</object>
+						<object class="sizeritem">
+							<option>2</option>
+							<flag>wxALL|wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxStaticBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<label>Image Data</label>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxButton" name="m_lastImgButton">
+										<label>Last Image</label>
+										<default>0</default>
+										<auth_needed>0</auth_needed>
+										<markup>0</markup>
+										<bitmap />
+									</object>
 								</object>
-							</object>
-							<object class="sizeritem">
-								<option>1</option>
-								<flag>wxALL|wxEXPAND</flag>
-								<border>5</border>
-								<object class="wxBoxSizer">
-									<orient>wxVERTICAL</orient>
-									<object class="sizeritem">
-										<option>1</option>
-										<flag>wxEXPAND</flag>
-										<border>5</border>
-										<object class="wxBoxSizer">
-											<orient>wxVERTICAL</orient>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL|wxBOTTOM</flag>
-												<border>0</border>
-												<object class="wxStaticText" name="m_fileNameStaticText">
-													<label>File Name:</label>
-													<wrap>-1</wrap>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxButton" name="m_nextImgButton">
+										<label>Next Image</label>
+										<default>0</default>
+										<auth_needed>0</auth_needed>
+										<markup>0</markup>
+										<bitmap />
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxALL|wxEXPAND</flag>
+									<border>5</border>
+									<object class="wxBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<object class="sizeritem">
+											<option>1</option>
+											<flag>wxEXPAND</flag>
+											<border>5</border>
+											<object class="wxBoxSizer">
+												<orient>wxVERTICAL</orient>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL|wxBOTTOM</flag>
+													<border>0</border>
+													<object class="wxStaticText" name="m_fileNameStaticText">
+														<label>File Name:</label>
+														<wrap>-1</wrap>
+													</object>
 												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL|wxBOTTOM</flag>
-												<border>0</border>
-												<object class="wxTextCtrl" name="m_fileNameTextCtrl">
-													<style>wxTE_PROCESS_ENTER</style>
-													<value></value>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL|wxBOTTOM</flag>
+													<border>0</border>
+													<object class="wxTextCtrl" name="m_fileNameTextCtrl">
+														<style>wxTE_PROCESS_ENTER</style>
+														<value></value>
+													</object>
 												</object>
 											</object>
 										</object>
-									</object>
-									<object class="sizeritem">
-										<option>1</option>
-										<flag>wxEXPAND</flag>
-										<border>5</border>
-										<object class="wxBoxSizer">
-											<orient>wxVERTICAL</orient>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>2</border>
-												<object class="wxStaticText" name="m_WorkSpaceLableStaticText">
-													<label>Work Space:</label>
-													<wrap>-1</wrap>
+										<object class="sizeritem">
+											<option>1</option>
+											<flag>wxEXPAND</flag>
+											<border>5</border>
+											<object class="wxBoxSizer">
+												<orient>wxVERTICAL</orient>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL</flag>
+													<border>2</border>
+													<object class="wxStaticText" name="m_WorkSpaceLableStaticText">
+														<label>Work Space:</label>
+														<wrap>-1</wrap>
+													</object>
 												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="m_displayWorkSpaceStaticText">
-													<style>wxST_ELLIPSIZE_START</style>
-													<label>File Name</label>
-													<wrap>-1</wrap>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL</flag>
+													<border>5</border>
+													<object class="wxStaticText" name="m_displayWorkSpaceStaticText">
+														<style>wxST_ELLIPSIZE_START</style>
+														<label>File Name</label>
+														<wrap>-1</wrap>
+													</object>
 												</object>
 											</object>
 										</object>
@@ -275,24 +278,34 @@
 				<flag>wxEXPAND</flag>
 				<border>5</border>
 				<object class="wxBoxSizer">
-					<minsize>1000,-1</minsize>
 					<orient>wxVERTICAL</orient>
 					<object class="sizeritem">
 						<option>10</option>
-						<flag>wxEXPAND | wxALL</flag>
-						<border>0</border>
-						<object class="wxScrolledWindow" name="m_imgScrolledWindow">
-							<style>wxHSCROLL|wxVSCROLL</style>
-							<bg>#000000</bg>
-							<fg>#ffffff</fg>
-							<scrollrate>5,5</scrollrate>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxPanel" name="m_panel3">
+							<style>wxTAB_TRAVERSAL</style>
+							<object class="wxBoxSizer">
+								<orient>wxVERTICAL</orient>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxEXPAND | wxALL</flag>
+									<border>5</border>
+									<object class="wxScrolledWindow" name="m_imgScrolledWindow">
+										<style>wxHSCROLL|wxVSCROLL</style>
+										<bg>#000000</bg>
+										<fg>#ffffff</fg>
+										<scrollrate>5,5</scrollrate>
+									</object>
+								</object>
+							</object>
 						</object>
 					</object>
 					<object class="sizeritem">
 						<option>1</option>
 						<flag>wxEXPAND | wxALL</flag>
 						<border>5</border>
-						<object class="wxPanel" name="m_logPanel">
+						<object class="wxPanel" name="m_panel2">
 							<style>wxTAB_TRAVERSAL</style>
 							<object class="wxBoxSizer">
 								<orient>wxVERTICAL</orient>
@@ -316,10 +329,9 @@
 								<object class="sizeritem">
 									<option>1</option>
 									<flag>wxEXPAND</flag>
-									<border>0</border>
+									<border>5</border>
 									<object class="wxTextCtrl" name="logTextCtrl">
 										<style>wxTE_MULTILINE</style>
-										<size>-1,100</size>
 										<value></value>
 										<maxlength>0</maxlength>
 									</object>
